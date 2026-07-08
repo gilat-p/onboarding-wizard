@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Agent Onboarding · Reception Hall</title>
+<style>html,body{margin:0;padding:0}body{font:14px system-ui,-apple-system,"Segoe UI",sans-serif;background:#F3F5F4;color:#17211F;-webkit-font-smoothing:antialiased}img{max-width:100%}</style>
+</head>
+<body>
+<style>
+  :root{
+    --ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#17211F;--muted:#616E6B;--hair:#E4E9E7;
+    --brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;
+    --amber:#B9740F;--amber-soft:#FBEFDD;
+    --shadow:0 1px 2px rgba(23,33,31,.04),0 10px 30px rgba(23,33,31,.08);
+    --font-display:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,sans-serif;
+    --font-body:system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ground:#0F1513;--surface:#17201E;--surface-2:#1C2624;--ink:#E9EFED;--muted:#96A29F;--hair:#26312E;
+    --brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;
+    --amber:#E0A04B;--amber-soft:#33260F;--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.5);
+  }}
+  :root[data-theme="light"]{--ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#17211F;--muted:#616E6B;--hair:#E4E9E7;--brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;--amber:#B9740F;--amber-soft:#FBEFDD;--shadow:0 1px 2px rgba(23,33,31,.04),0 10px 30px rgba(23,33,31,.08);}
+  :root[data-theme="dark"]{--ground:#0F1513;--surface:#17201E;--surface-2:#1C2624;--ink:#E9EFED;--muted:#96A29F;--hair:#26312E;--brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.5);}
+
+  *{box-sizing:border-box;} body{margin:0;}
+  .page{font-family:var(--font-body);background:radial-gradient(1000px 460px at 82% -12%,var(--brand-soft),transparent 60%),var(--ground);color:var(--ink);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:34px 20px 60px;-webkit-font-smoothing:antialiased;line-height:1.5;}
+  .card{width:100%;max-width:580px;background:var(--surface);border:1px solid var(--hair);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;}
+  .top{padding:20px 26px 0;display:flex;align-items:center;gap:12px;}
+  .logo{width:40px;height:40px;border-radius:11px;flex:none;display:grid;place-items:center;font-size:20px;background:linear-gradient(150deg,var(--brand),var(--brand-ink));}
+  .top .n{font-family:var(--font-display);font-weight:700;font-size:15px;}
+  .top .s{font-size:12px;color:var(--muted);}
+  .theme-toggle{margin-left:auto;border:1px solid var(--hair);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 11px;font-size:12px;cursor:pointer;font-family:var(--font-body);}
+  .bar{height:5px;background:var(--hair);margin:18px 26px 0;border-radius:999px;overflow:hidden;}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-ink));width:12%;transition:width .35s cubic-bezier(.4,0,.2,1);border-radius:999px;}
+  .stepno{padding:8px 26px 0;font-size:12px;color:var(--muted);font-weight:600;}
+  .body{padding:14px 26px 8px;min-height:308px;}
+  .step{display:none;animation:fade .35s ease;} .step.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.step.on{animation:none;}.bar>i{transition:none;}}
+  h2{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.3px;margin:2px 0 6px;text-wrap:balance;}
+  .say{color:var(--muted);font-size:14px;margin:0 0 16px;}
+  .sugg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--brand-ink);background:var(--brand-soft);border-radius:999px;padding:3px 9px;margin-left:8px;vertical-align:middle;}
+  .why{font-size:12px;color:var(--muted);margin:8px 0 0;font-style:italic;}
+  .reassure{font-size:12.5px;color:var(--brand-ink);background:var(--brand-soft);border-radius:10px;padding:9px 12px;margin-top:14px;display:flex;gap:8px;align-items:flex-start;}
+
+  .ident{width:100%;border:1.5px solid var(--hair);background:var(--surface);border-radius:12px;padding:12px 13px;font-size:15px;font-family:var(--font-body);color:var(--ink);margin-bottom:10px;}
+  .ident:focus-visible{outline:2px solid var(--brand);outline-offset:1px;}
+  .opts{display:flex;gap:9px;flex-wrap:wrap;}
+  .opt{border:1.5px solid var(--hair);background:var(--surface);border-radius:13px;padding:11px 14px;font-size:14.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:9px;transition:border-color .15s,background .15s;font-family:var(--font-body);color:var(--ink);}
+  .opt .ic{font-size:17px;} .opt:hover{border-color:var(--muted);}
+  .opt.sel{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-ink);}
+  .opt.disabled{opacity:.5;cursor:not-allowed;} .opt.disabled:hover{border-color:var(--hair);}
+  .opt:focus-visible{outline:2px solid var(--brand);outline-offset:2px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .fmt{flex-direction:column;align-items:flex-start;gap:3px;}
+  .fmt .ft{font-size:14.5px;} .fmt .fd{font-size:11.5px;color:var(--muted);font-weight:500;} .opt.sel .fd{color:var(--brand-ink);}
+  .sublabel{font-size:12.5px;color:var(--muted);margin:16px 0 8px;font-weight:600;}
+  .future{font-size:10.5px;color:var(--amber);background:var(--amber-soft);border-radius:999px;padding:2px 7px;font-weight:700;margin-left:6px;}
+
+  .slider{-webkit-appearance:none;appearance:none;width:100%;height:9px;border-radius:999px;background:linear-gradient(90deg,var(--brand) 0%,var(--brand) var(--pct,50%),var(--hair) var(--pct,50%),var(--hair) 100%);outline:none;margin:10px 0 8px;}
+  .slider::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--brand);cursor:pointer;box-shadow:var(--shadow);}
+  .slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--brand);cursor:pointer;}
+  .scale-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);}
+  .scale-desc{margin-top:12px;background:var(--surface-2);border:1px solid var(--hair);border-left:3px solid var(--brand);border-radius:11px;padding:12px 14px;font-size:14px;}
+  .scale-desc b{color:var(--brand-ink);font-family:var(--font-display);}
+
+  .check{display:flex;align-items:flex-start;gap:10px;padding:9px 0;font-size:14px;cursor:pointer;}
+  .check input{margin-top:2px;width:17px;height:17px;accent-color:var(--brand);flex:none;}
+  .check .lk{color:var(--muted);font-size:11.5px;}
+  .conn{border:1.5px solid var(--hair);background:var(--surface);border-radius:12px;padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;display:flex;gap:9px;align-items:center;font-family:var(--font-body);color:var(--ink);width:100%;margin-bottom:8px;}
+  .conn .rt{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:500;}
+  .conn.done{border-color:var(--green);background:var(--green-soft);color:var(--green);} .conn.done .rt{color:var(--green);}
+  .consent{display:flex;align-items:flex-start;gap:10px;margin-top:14px;font-size:13.5px;color:var(--ink);background:var(--surface-2);border:1px solid var(--hair);border-radius:12px;padding:12px;}
+  .consent input{margin-top:2px;width:18px;height:18px;accent-color:var(--brand);flex:none;}
+
+  .rev{display:flex;flex-direction:column;} .revrow{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--hair);font-size:14px;} .revrow:last-child{border-bottom:none;}
+  .revrow .k{color:var(--muted);width:110px;flex:none;} .revrow .v{font-weight:600;font-family:var(--font-display);} .revrow .v small{font-weight:400;color:var(--muted);font-family:var(--font-body);}
+
+  /* done / preview */
+  .burst{text-align:center;padding:4px 0 2px;} .burst .e{font-size:40px;} .burst h2{margin-top:4px;}
+  .peek{border:1px solid var(--hair);border-radius:14px;background:var(--surface-2);padding:14px;margin-top:12px;}
+  .peek .ph{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+  .digest{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:12px;font-size:13px;}
+  table.dg{border-collapse:collapse;width:100%;font-size:12.5px;} table.dg th{text-align:left;color:var(--muted);font-weight:650;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;border-bottom:1px solid var(--hair);} table.dg td{padding:7px 8px;border-bottom:1px solid var(--hair);} table.dg tr:last-child td{border-bottom:none;}
+  .pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;} .pill.a{color:var(--amber);background:var(--amber-soft);} .pill.g{color:var(--green);background:var(--green-soft);}
+  .digest ul{margin:4px 0 0;padding-left:18px;} .digest li{margin-bottom:4px;}
+  .appr{background:var(--surface);border:1px solid color-mix(in srgb,var(--amber) 30%,var(--hair));border-radius:12px;padding:12px;margin-top:10px;}
+  .appr .ah{font-size:13px;font-weight:650;font-family:var(--font-display);margin-bottom:6px;}
+  .appr .draft{background:var(--surface-2);border:1px solid var(--hair);border-left:3px solid var(--brand);border-radius:9px;padding:9px 11px;font-size:12.5px;color:var(--ink);}
+  .appr .ab{display:flex;gap:7px;margin-top:9px;} .appr .b{font-size:12.5px;font-weight:600;border-radius:9px;padding:7px 12px;cursor:pointer;border:1px solid var(--hair);background:transparent;color:var(--ink);font-family:var(--font-body);} .appr .b.p{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .appr.sent .ab,.appr.sent .draft{display:none;} .appr .sentmsg{display:none;color:var(--green);font-weight:600;font-size:13px;} .appr.sent .sentmsg{display:block;}
+  .output{margin-top:12px;border:1px solid var(--hair);border-radius:13px;background:var(--surface-2);padding:12px;}
+  .output .oh{font-size:12px;color:var(--muted);margin-bottom:8px;} .output .oh b{font-family:var(--mono);color:var(--ink);}
+  .output pre{margin:0;background:#0c1614;color:#cdeee6;border-radius:10px;padding:11px;font-family:var(--mono);font-size:11px;line-height:1.5;overflow:auto;max-height:200px;white-space:pre;}
+  .obtns{display:flex;gap:8px;margin-top:9px;} .ob{border:1px solid var(--hair);background:var(--surface);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font-body);color:var(--ink);} .ob.primary{background:var(--brand);color:#fff;border-color:var(--brand);}
+
+  .nav{display:flex;gap:10px;padding:8px 26px 24px;align-items:center;}
+  .btn{font-family:var(--font-display);font-weight:700;font-size:15px;border-radius:13px;padding:13px 20px;cursor:pointer;border:1.5px solid transparent;transition:filter .15s,border-color .15s;}
+  .btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;}
+  .btn.next{background:var(--brand);color:#fff;margin-left:auto;flex:1;} .btn.next:hover{filter:brightness(1.06);} .btn.next:disabled{opacity:.45;cursor:not-allowed;}
+  .btn.back{background:transparent;border-color:var(--hair);color:var(--muted);} .btn.back:hover{color:var(--ink);border-color:var(--muted);} .btn.back.hide{visibility:hidden;}
+</style>
+
+<div class="page">
+  <div class="card">
+    <div class="top">
+      <div class="logo">🪄</div>
+      <div><div class="n">The Reception Hall</div><div class="s" id="crumb">Let's meet your agent</div></div>
+      <button class="theme-toggle" id="tt">◐</button>
+    </div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="stepno" id="stepno">Step 1 of 8</div>
+
+    <div class="body">
+      <!-- 0 WELCOME -->
+      <div class="step on" data-step>
+        <h2>Hi 👋 Let's set up your agent.</h2>
+        <p class="say">Make your choices — we've flagged what we suggest with ✨, but it's your call. About two minutes.</p>
+        <input id="who" class="ident" placeholder="Your name" value="">
+        <input id="email" class="ident" placeholder="Your work email" value="">
+        <div class="reassure">🌱 <span>No wrong answers — you can change all of this later, anytime.</span></div>
+      </div>
+
+      <!-- 1 TOOLS -->
+      <div class="step" data-step>
+        <h2>Where do you work?</h2>
+        <p class="say">Your agent runs alongside you in one tool, and watches your sources.</p>
+        <div class="opts" data-single data-agent>
+          <button class="opt" data-a="claude_code"><span class="ic">◆</span> Claude Code</button>
+          <button class="opt" data-a="codex"><span class="ic">◇</span> Codex</button>
+          <button class="opt" data-a="cursor"><span class="ic">▷</span> Cursor</button>
+        </div>
+        <div class="sublabel">Watch these for me <span class="sugg">✨ Slack + Jira suggested</span></div>
+        <div class="opts" data-multi data-sources>
+          <button class="opt" data-src="slack"><span class="ic">💬</span> Slack</button>
+          <button class="opt" data-src="jira"><span class="ic">📋</span> Jira</button>
+          <button class="opt disabled" data-src="email" disabled><span class="ic">✉️</span> Email <span class="future">soon</span></button>
+          <button class="opt disabled" data-src="git" disabled><span class="ic">🔧</span> Git <span class="future">soon</span></button>
+        </div>
+        <p class="why">Email &amp; Git join in a later phase — this demo focuses on Slack + Jira.</p>
+      </div>
+
+      <!-- 2 FOCUS -->
+      <div class="step" data-step>
+        <h2>How do you like to focus?</h2>
+        <p class="say">Sets your agent's pace. No judgment — it's private, only your agent sees it.</p>
+        <input type="range" min="1" max="5" value="3" class="slider" id="scale">
+        <div class="scale-ends"><span>Leave me alone<br>until I ask</span><span style="text-align:right">Keep me in<br>the loop live</span></div>
+        <div class="scale-desc" id="scaleDesc"></div>
+        <div class="reassure">🔒 <span>Private setting — shapes how your agent talks to you, and never leaves your agent.</span></div>
+      </div>
+
+      <!-- 3 DELIVERY -->
+      <div class="step" data-step>
+        <h2>How should it report back? <span class="sugg">✨ Table</span></h2>
+        <p class="say">We suggest a table — you track several workstreams at once. Change it if you like.</p>
+        <div class="grid" data-single data-fmt>
+          <button class="opt fmt" data-style="table"><span class="ft">📊 Table</span><span class="fd">a tidy status grid</span></button>
+          <button class="opt fmt" data-style="slides"><span class="ft">🖼️ Slides</span><span class="fd">deck-ready</span></button>
+          <button class="opt fmt" data-style="bullets"><span class="ft">• Bullets</span><span class="fd">a scannable list</span></button>
+          <button class="opt fmt" data-style="narrative"><span class="ft">📄 Article</span><span class="fd">a few paragraphs</span></button>
+          <button class="opt fmt" data-style="other" style="grid-column:1 / -1"><span class="ft">✍️ Other — in your own words</span><span class="fd">tell it exactly how you want it</span></button>
+        </div>
+        <textarea id="freestyle" class="ident" style="display:none;min-height:74px;margin-top:10px;resize:vertical" placeholder="e.g. “A one-line Slack summary each morning, and a short deck before Monday standup. Ping me only for customer blockers.”"></textarea>
+      </div>
+
+      <!-- 4 AUTONOMY -->
+      <div class="step" data-step>
+        <h2>How much should it do on its own? <span class="sugg">✨ Draft for approval</span></h2>
+        <p class="say">You're always in control. We suggest starting cautious — loosen it once you trust it.</p>
+        <div class="opts" data-single data-auto style="flex-direction:column;align-items:stretch;">
+          <button class="opt fmt" data-lvl="manual"><span class="ft">✋ Ask me first</span><span class="fd">checks with you before anything</span></button>
+          <button class="opt fmt" data-lvl="suggest"><span class="ft">✍️ Draft for my approval</span><span class="fd">it prepares, you tap approve</span></button>
+          <button class="opt fmt" data-lvl="auto"><span class="ft">⚡ Handle the small stuff</span><span class="fd">routine done for you; big things still asked</span></button>
+        </div>
+      </div>
+
+      <!-- 5 ESCALATION + PRIVACY -->
+      <div class="step" data-step>
+        <h2>Escalation &amp; privacy</h2>
+        <p class="say">When something's above your line, who should it loop in?</p>
+        <div class="sublabel">Escalate to <span class="sugg">✨ Your manager</span></div>
+        <input id="escto" class="ident" value="manager@pheno.ai">
+        <p class="why">Pulled from your org profile — your manager.</p>
+        <div class="sublabel" style="margin-top:16px;">Never touch this data <span class="sugg">✨ Recommended</span></div>
+        <label class="check"><input type="checkbox" class="deny" data-d="participant PII" checked> Participant PII <span class="lk">· health data</span></label>
+        <label class="check"><input type="checkbox" class="deny" data-d="clinical/raw cohort data" checked> Clinical / raw cohort data</label>
+        <label class="check"><input type="checkbox" class="deny" data-d="CI/dependabot noise"> Bot / CI noise</label>
+        <label class="check"><input type="checkbox" class="deny" data-d="standup reminders"> Standup reminders</label>
+        <div class="reassure">🛡️ <span>The top two are enforced in code — your agent physically can't read or repeat them.</span></div>
+      </div>
+
+      <!-- 6 CONNECT -->
+      <div class="step" data-step>
+        <h2>Connect your tools.</h2>
+        <p class="say">One tap each — lets your agent read on your behalf. Disconnect anytime.</p>
+        <button class="conn" data-conn>💬 <span>Connect Slack</span><span class="rt">tap to connect</span></button>
+        <button class="conn" data-conn>📋 <span>Connect Jira</span><span class="rt">tap to connect</span></button>
+        <label class="consent"><input type="checkbox" id="consent"> I'm okay with my agent acting on my behalf across these tools, within the choices I made. I can pause it anytime.</label>
+      </div>
+
+      <!-- 7 REVIEW -->
+      <div class="step" data-step>
+        <h2>Here's your agent — look right?</h2>
+        <p class="say">Quick check. Hit Back to change anything.</p>
+        <div class="rev" id="rev"></div>
+      </div>
+
+      <!-- 8 DONE / PREVIEW -->
+      <div class="step" data-step>
+        <div class="burst"><div class="e">🎉</div><h2>Meet your agent.</h2></div>
+        <p class="say" style="text-align:center">It's live. Here's a peek at what tomorrow morning looks like:</p>
+
+        <div class="peek">
+          <div class="ph">📬 Your first digest <span style="font-weight:400;text-transform:none;letter-spacing:0" id="fmttag"></span></div>
+          <div class="digest" id="digest"></div>
+        </div>
+
+        <div class="peek">
+          <div class="ph">✋ …and how it asks permission</div>
+          <div class="appr" id="appr">
+            <div class="ah">New comment on TICKET-204 · from a teammate</div>
+            <div class="draft">“Hi — the dataset finished loading into your workspace and is ready to query.”</div>
+            <div class="ab"><button class="b p" id="apprBtn">Approve &amp; send</button><button class="b">Edit</button><button class="b">Not now</button></div>
+            <div class="sentmsg">✓ Sent · just now</div>
+          </div>
+        </div>
+
+        <div class="output">
+          <div class="oh">📄 nothing hidden — your saved file: <b id="fname">prefs.your-name.md</b></div>
+          <pre id="prefsOut"></pre>
+          <div class="obtns"><button class="ob primary" id="copyBtn">Copy</button><button class="ob" id="dlBtn">Download</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn back hide" id="back">← Back</button>
+      <button class="btn next" id="next">Get started →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var steps=[...document.querySelectorAll("[data-step]")];
+  var INPUT_STEPS=8; var cur=0;
+  var crumbs=["Let's meet your agent","Your tools","Your pace","Your reports","Your comfort level","Escalation & privacy","Connect","Review","All done"];
+  var nextLabels=["Get started →","Next →","Next →","Next →","Next →","Next →","Next →","Create my agent ✨"];
+
+  document.querySelectorAll("[data-single]").forEach(function(g){
+    g.querySelectorAll(".opt").forEach(function(b){ if(b.classList.contains("disabled"))return; b.addEventListener("click",function(){ g.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); updateNav(); }); });
+  });
+  document.querySelectorAll("[data-multi]").forEach(function(g){
+    g.querySelectorAll(".opt").forEach(function(b){ if(b.classList.contains("disabled"))return; b.addEventListener("click",()=>{ b.classList.toggle("sel"); updateNav(); }); });
+  });
+
+  var DESC={1:"Short bites, gathered into one daily note. I won't interrupt you.",2:"Mostly batched and brief — I'll only ping you if it's urgent.",3:"A daily digest that leads with what needs you. More detail if you ask.",4:"I'll share more context, and reach out when something genuinely matters.",5:"Full context, in real time. I'll keep you in the loop as things happen."};
+  var PACE={1:"Heads-down",2:"Mostly quiet",3:"Daily digest",4:"Stay close",5:"Real-time"};
+  var scale=document.getElementById("scale"),sdesc=document.getElementById("scaleDesc");
+  function paintScale(){var v=+scale.value;scale.style.setProperty("--pct",((v-1)/4*100)+"%");sdesc.innerHTML="<b>"+PACE[v]+".</b> "+DESC[v];}
+  scale.addEventListener("input",paintScale);paintScale();
+
+  document.querySelectorAll("[data-conn]").forEach(function(b){ b.addEventListener("click",function(){ if(b.classList.contains("done"))return; b.classList.add("done"); b.querySelector(".rt").textContent="connected ✓"; }); });
+  var consent=document.getElementById("consent"); consent.addEventListener("change",updateNav);
+  document.querySelectorAll("[data-fmt] .opt").forEach(function(b){ b.addEventListener("click",function(){ document.getElementById("freestyle").style.display=(b.getAttribute("data-style")==="other")?"block":"none"; }); });
+  var apprBtn=document.getElementById("apprBtn"); if(apprBtn) apprBtn.addEventListener("click",()=>document.getElementById("appr").classList.add("sent"));
+
+  function val(sel,attr){var el=document.querySelector(sel+" .sel");return el?el.getAttribute(attr):"";}
+  function sources(){return [...document.querySelectorAll("[data-sources] .sel")].map(b=>b.getAttribute("data-src"));}
+  function denies(){return [...document.querySelectorAll(".deny:checked")].map(c=>c.getAttribute("data-d"));}
+  var STYLEWORD={table:"a status table",slides:"deck-ready slides",bullets:"short bullets",narrative:"a short article",other:"exactly as I described"};
+  var FMTLABEL={table:"📊 as a table",slides:"🖼️ as slides",bullets:"• as bullets",narrative:"📄 as an article",other:"✍️ your way"};
+  var AUTOWORD={manual:"Ask me first",suggest:"Draft for approval",auto:"Handle the small stuff"};
+
+  function renderReview(){
+    var r=document.getElementById("rev");
+    var rows=[
+      ["Who",(document.getElementById("who").value||"You")+" <small>· "+(document.getElementById("email").value||"")+"</small>"],
+      ["Works in",({claude_code:"Claude Code",codex:"Codex",cursor:"Cursor"})[val("[data-agent]","data-a")]],
+      ["Watches",sources().map(s=>({slack:"Slack",jira:"Jira"})[s]).join(" · ")||"—"],
+      ["Pace",PACE[+scale.value]+" <small>· private</small>"],
+      ["Reports as",({table:"Table",slides:"Slides",bullets:"Bullets",narrative:"Article"})[val("[data-fmt]","data-style")]],
+      ["Autonomy",AUTOWORD[val("[data-auto]","data-lvl")]],
+      ["Escalates to",document.getElementById("escto").value||"—"],
+      ["Never reads",denies().slice(0,2).join(" · ")||"—"]
+    ];
+    r.innerHTML=rows.map(x=>"<div class='revrow'><span class='k'>"+x[0]+"</span><span class='v'>"+x[1]+"</span></div>").join("");
+  }
+
+  function sampleDigest(style){
+    if(style==="other"){var c=(document.getElementById("freestyle").value||"").trim();return "<p style='margin:0'>Your agent reports <b>in your words</b>:</p><p style='margin:6px 0 0;color:var(--muted)'>“"+(c||"as you described")+"”</p>";}
+    if(style==="table"){
+      return "<table class='dg'><tr><th>Item</th><th>Status</th><th>Next</th></tr>"+
+        "<tr><td>ACCESS-01 request</td><td><span class='pill a'>blocked 5h</span></td><td>escalated → manager</td></tr>"+
+        "<tr><td>Dataset load</td><td><span class='pill g'>ready</span></td><td>replied to requester</td></tr>"+
+        "<tr><td>Onboarding tickets</td><td><span class='pill g'>3 triaged</span></td><td>—</td></tr></table>";
+    }
+    if(style==="bullets"){
+      return "<ul><li><b>🚩 ACCESS-01 request blocked 5h</b> — escalated to your manager.</li><li><b>✅ Dataset load finished</b> — replied to the requester.</li><li><b>✅ 3 onboarding tickets</b> triaged &amp; labeled.</li></ul>";
+    }
+    if(style==="slides"){
+      return "<b>Slide — This morning</b><ul><li>1 blocker (ACCESS-01, escalated)</li><li>2 items handled (dataset reply, triage)</li></ul><span class='lk' style='color:var(--muted)'>+ speaker notes</span>";
+    }
+    return "<p style='margin:0'>Three things this morning. <b>ACCESS-01 request is blocked 5h</b> — I've escalated it to your manager. The dataset finished loading and I replied to the requester, and I triaged 3 onboarding tickets. Nothing else needs you right now.</p>";
+  }
+
+  function sanitize(e){return e.trim().toLowerCase().replace(/[@.]/g,"-");}
+  function buildPrefs(){
+    var name=document.getElementById("who").value.trim()||"New Employee";
+    var email=document.getElementById("email").value.trim()||"user@pheno.ai";
+    var rid=sanitize(email),agent=val("[data-agent]","data-a")||"claude_code";
+    var v=+scale.value,style=val("[data-fmt]","data-style")||"table",lvl=val("[data-auto]","data-lvl")||"suggest";
+    var custom=(document.getElementById("freestyle").value||"").trim();
+    var styleField=(style==="other")?"custom":style;
+    var delivProse=(style==="other")?(custom||"As I described, in my own words."):("Report back as "+STYLEWORD[style]+".");
+    var esc=document.getElementById("escto").value.trim()||"manager@pheno.ai";
+    var AUTO={manual:"Always ask me before acting — never send or change anything on your own.",suggest:"Draft actions for my approval; don't act unilaterally. Escalate anything unclear.",auto:"Handle routine actions yourself and tell me after; escalate anything risky or customer-facing."};
+    var md="---\nschema_version: v0\nresource_id: "+rid+"\nrepresented_person_id: "+email+"\ntools:\n  agent: "+agent+"\n  sources: ["+sources().join(", ")+"]\nworking_style_scale: "+v+"          # PRIVATE, never over A2A\nautonomy: "+lvl+"\nescalation:\n  route_to: "+esc+"\ntopics:\n  deny: ["+denies().map(d=>'"'+d+'"').join(", ")+"]\nbriefing:\n  style: "+styleField+"\n  length: short\n  language: en\n---\n\n# Handler preferences — "+name+"\n\n## working style\n"+DESC[v]+" (Private — don't share outside my own agent.)\n\n## autonomy — "+lvl+"\n"+AUTO[lvl]+"\n\n## escalation\nEscalate to "+esc+" anything above my line — customer-milestone blockers, audit risk, access issues.\n\n## delivery\n"+delivProse+"\n";
+    return {md:md,fname:"prefs."+rid+".md"};
+  }
+
+  function show(i){
+    steps.forEach((s,k)=>s.classList.toggle("on",k===i)); cur=i;
+    document.getElementById("crumb").textContent=crumbs[i];
+    document.getElementById("fill").style.width=(i>=INPUT_STEPS?100:((i+1)/INPUT_STEPS*100))+"%";
+    document.getElementById("stepno").textContent=i>=INPUT_STEPS?"Done":("Step "+(i+1)+" of "+INPUT_STEPS);
+    document.getElementById("back").classList.toggle("hide",i===0||i>=INPUT_STEPS);
+    var next=document.getElementById("next");
+    if(i>=INPUT_STEPS){document.querySelector(".nav").style.display="none";}
+    next.textContent=nextLabels[i]||"Next →";
+    if(i===7) renderReview();
+    updateNav();
+  }
+  function updateNav(){
+    var ok=true;
+    if(cur===1) ok = !!document.querySelector("[data-agent] .sel") && document.querySelectorAll("[data-sources] .sel").length>0;
+    else if(cur===3) ok = !!document.querySelector("[data-fmt] .sel");
+    else if(cur===4) ok = !!document.querySelector("[data-auto] .sel");
+    else if(cur===6) ok = consent.checked;
+    document.getElementById("next").disabled = !ok;
+  }
+
+  document.getElementById("next").addEventListener("click",function(){
+    if(cur===7){ // review -> create + preview
+      var out=buildPrefs();
+      document.getElementById("prefsOut").textContent=out.md;
+      document.getElementById("fname").textContent=out.fname;
+      document.getElementById("dlBtn").setAttribute("data-name",out.fname);
+      var style=val("[data-fmt]","data-style")||"table";
+      document.getElementById("digest").innerHTML=sampleDigest(style);
+      document.getElementById("fmttag").textContent=FMTLABEL[style];
+      show(8); return;
+    }
+    if(cur<INPUT_STEPS-1) show(cur+1);
+  });
+  document.getElementById("back").addEventListener("click",()=>{if(cur>0)show(cur-1);});
+
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var t=document.getElementById("prefsOut").textContent,b=this;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy",1500);})
+    .catch(()=>{var r=document.createRange();r.selectNodeContents(document.getElementById("prefsOut"));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Select+⌘C";setTimeout(()=>b.textContent="Copy",1800);});
+  });
+  document.getElementById("dlBtn").addEventListener("click",function(){
+    try{var t=document.getElementById("prefsOut").textContent,a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/markdown"}));a.download=this.getAttribute("data-name")||"prefs.md";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}catch(e){this.textContent="Use Copy";}
+  });
+  document.getElementById("tt").addEventListener("click",function(){var r=document.documentElement,dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",dark?"light":"dark");});
+  show(0);
+</script>
+
+</body>
+</html>
