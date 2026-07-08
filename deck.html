@@ -1,0 +1,235 @@
+<style>
+  :root{
+    --bg:#F3F3F1; --card:rgba(255,255,255,.55); --line:rgba(20,22,26,.11);
+    --ink:#14161A; --muted:#5B616B; --faint:#8A9099; --blue:#2348F2; --blue-soft:#E7ECFE; --white:#fff;
+    --serif:ui-serif,"New York",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono","IBM Plex Mono",Menlo,monospace;
+    --sans:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;} body{margin:0;}
+  .deck{position:fixed;inset:0;overflow:hidden;font-family:var(--sans);color:var(--ink);
+    background-color:var(--bg);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),radial-gradient(120vw 80vh at 70% -10%, rgba(35,72,242,.05), transparent 55%);}
+  .frame{position:absolute;inset:3vh 4vw 7.5vh 4vw;border-radius:26px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 70px rgba(20,22,26,.07),inset 0 1px 0 rgba(255,255,255,.6);backdrop-filter:blur(2px);overflow:hidden;}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:7.5% 8.5%;opacity:0;visibility:hidden;transition:opacity .45s ease;pointer-events:none;}
+  .slide.active{opacity:1;visibility:visible;pointer-events:auto;}
+  .slide.active .rise{animation:rise .5s cubic-bezier(.2,.7,.2,1) both;}
+  .slide.active .rise:nth-child(2){animation-delay:.05s}.slide.active .rise:nth-child(3){animation-delay:.11s}.slide.active .rise:nth-child(4){animation-delay:.17s}.slide.active .rise:nth-child(5){animation-delay:.23s}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.slide.active .rise{animation:none}}
+  .eyebrow{font-family:var(--mono);color:var(--blue);font-size:clamp(11px,1.15vw,14px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;}
+  h1{font-family:var(--serif);font-weight:700;line-height:1.0;letter-spacing:-.015em;margin:14px 0 0;font-size:clamp(46px,7.6vw,96px);}
+  h2{font-family:var(--serif);font-weight:700;line-height:1.02;letter-spacing:-.015em;margin:12px 0 0;font-size:clamp(32px,5.2vw,58px);}
+  .ubar{width:66px;height:5px;background:var(--blue);border-radius:2px;margin:24px 0 22px;} .ubar.sm{margin:16px 0 18px;}
+  .sub{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2.6vw,30px);line-height:1.28;max-width:26ch;}
+  .lead{color:var(--muted);font-size:clamp(15px,1.8vw,19px);line-height:1.45;max-width:44ch;}
+  .meta{font-family:var(--mono);color:var(--blue);font-size:clamp(11px,1.2vw,14px);letter-spacing:.1em;text-transform:uppercase;margin-top:32px;}
+  .k{color:var(--ink);font-weight:600;}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px;}
+  .lc{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;}
+  .lc h3{font-family:var(--serif);font-weight:700;font-size:clamp(18px,2.2vw,24px);margin:0 0 8px;}
+  .lc p{color:var(--muted);font-size:clamp(13px,1.6vw,16px);line-height:1.42;margin:0;}
+  .lc .ic{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;}
+
+  .flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin-top:6px;}
+  .node{position:relative;flex:1 1 0;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 13px;}
+  .node.hot{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+  .node .nt{font-family:var(--serif);font-weight:700;font-size:15px;} .node .nd{color:var(--muted);font-size:11.5px;margin-top:4px;line-height:1.3;} .node .nd b{color:var(--ink);}
+  .arr{align-self:center;color:var(--blue);font-size:17px;}
+  .fnote{font-family:var(--mono);color:var(--blue);font-size:clamp(11px,1.4vw,15px);letter-spacing:.06em;margin-top:18px;}
+
+  .band2{border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.5);padding:11px 14px 13px;}
+  .band2 + .band2{margin-top:11px;}
+  .band2 .flow{gap:7px;}
+  .band2 .node{padding:10px 12px;min-width:110px;}
+  .band2 .node .nt{font-size:14px;} .band2 .node .nd{font-size:11px;margin-top:3px;line-height:1.28;}
+  .band2.biz .node{background:var(--blue-soft);border-color:color-mix(in srgb,var(--blue) 28%,var(--line));}
+  .blab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .blab .n{background:var(--blue);color:#fff;border-radius:5px;width:17px;height:17px;display:inline-grid;place-items:center;font-size:10px;font-weight:700;}
+  .stp{position:absolute;top:-8px;right:9px;background:var(--ink);color:#fff;border-radius:5px;font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 6px;}
+  .mtag{font-family:var(--mono);font-size:8.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:4px;padding:1px 5px;margin-left:5px;letter-spacing:.03em;text-transform:uppercase;vertical-align:middle;}
+  .arr.c{display:flex;flex-direction:column;align-items:center;line-height:1;}
+  .arr.c small{font-family:var(--mono);font-size:8px;color:var(--faint);letter-spacing:.02em;text-transform:uppercase;margin-top:3px;white-space:nowrap;}
+
+  .videowrap{margin-top:4px;display:flex;justify-content:center;}
+  .demovid{width:auto;max-width:100%;max-height:70vh;border-radius:14px;border:1px solid var(--line);box-shadow:0 22px 55px rgba(20,22,26,.18);background:#000;display:block;}
+  .demoframe{width:100%;max-width:1100px;height:72vh;border-radius:14px;border:1px solid var(--line);box-shadow:0 22px 55px rgba(20,22,26,.18);background:#fff;display:block;}
+  .livebadge{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;letter-spacing:.02em;color:#0a7d32;}
+  .livebadge::before{content:"";width:8px;height:8px;border-radius:50%;background:#12b34a;box-shadow:0 0 0 0 rgba(18,179,74,.55);animation:livepulse 1.8s infinite;}
+  @keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(18,179,74,.5)}70%{box-shadow:0 0 0 9px rgba(18,179,74,0)}100%{box-shadow:0 0 0 0 rgba(18,179,74,0)}}
+  .vcap{margin-top:12px;color:var(--muted);font-size:clamp(13px,1.6vw,17px);line-height:1.4;text-align:center;max-width:58ch;margin-left:auto;margin-right:auto;}
+  /* demo slide: minimal chrome so the video is as large as possible */
+  .slide.demo{padding:3.5vh 4vw;}
+  .slide.demo h2{font-size:clamp(22px,3.2vw,36px);margin:4px 0 0;}
+  .slide.demo .ubar{margin:9px 0 11px;}
+  .slide.demo .vcap{margin-top:9px;}
+
+  .dl{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:4px;}
+  .dlcol{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;}
+  .dlcol.g{border-left:3px solid var(--blue);}
+  .dlcol .h{font-family:var(--serif);font-weight:700;font-size:clamp(18px,2.1vw,23px);margin-bottom:4px;}
+  .dlcol .hk{font-family:var(--mono);font-size:10.5px;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;}
+  .dlrow{padding:8px 0;border-bottom:1px solid var(--line);font-size:clamp(13px,1.5vw,15.5px);} .dlrow:last-child{border-bottom:none;}
+  .dlrow b{font-family:var(--serif);}
+
+  .vp{border-bottom:1px solid var(--line);padding:14px 0;font-size:clamp(16px,2vw,22px);line-height:1.35;} .vp:last-child{border-bottom:none;}
+  .vp .lead-in{font-family:var(--serif);font-weight:700;} .vp .em{color:var(--blue);}
+  .kiro{margin-top:18px;border-top:1px solid var(--line);padding-top:14px;font-size:clamp(14px,1.7vw,18px);color:var(--muted);line-height:1.4;} .kiro b{color:var(--ink);font-family:var(--serif);}
+
+  .footer{position:fixed;bottom:2.6vh;left:4.6vw;font-family:var(--mono);color:var(--faint);font-size:11px;letter-spacing:.14em;text-transform:uppercase;z-index:9;}
+  .count{position:fixed;top:5vh;right:5.4vw;font-family:var(--mono);color:var(--blue);font-size:12px;letter-spacing:.1em;z-index:10;}
+  .chrome{position:fixed;bottom:2vh;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px;z-index:10;pointer-events:none;} .chrome>*{pointer-events:auto;}
+  .dots{display:flex;gap:7px;} .dot-i{width:7px;height:7px;border-radius:50%;background:rgba(35,72,242,.22);border:none;cursor:pointer;padding:0;} .dot-i.on{background:var(--blue);transform:scale(1.35);}
+  .navbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:16px;cursor:pointer;display:grid;place-items:center;} .navbtn:hover{border-color:var(--blue);color:var(--blue);}
+  .pbar{position:fixed;top:0;left:0;height:3px;background:var(--blue);z-index:11;transition:width .4s;}
+</style>
+
+<div class="deck" id="deck">
+  <div class="pbar" id="pbar"></div>
+  <div class="count" id="count">01 / 09</div>
+  <div class="frame">
+
+    <!-- 1 TITLE -->
+    <section class="slide active">
+      <div class="eyebrow rise">Enterprise agent runtime · PhenoAI Hackathon ’26</div>
+      <h1 class="rise">Agent in<br>the Middle</h1>
+      <div class="ubar rise"></div>
+      <div class="sub rise">A dedicated agent runtime for <span class="k">every employee</span> — technical and non-technical.</div>
+      <div class="meta rise">AMIT · GILAT · ILYA · MOSHE</div>
+    </section>
+
+    <!-- 2 PARADIGM SHIFT -->
+    <section class="slide">
+      <div class="eyebrow rise">The paradigm shift</div>
+      <h2 class="rise">Not another dev tool.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="two rise">
+        <div class="lc"><div class="ic">For everyone</div><h3>Not only for developers</h3><p>An enterprise agent runtime for <b>every employee</b> — bridging the gap for technical and non-technical users alike.</p></div>
+        <div class="lc"><div class="ic">Dedicated</div><h3>A per-employee stack</h3><p>Each person gets a dedicated infrastructure stack connecting their approved channels — Slack, Jira, email — into a single, governed <b>SQS inbox</b>.</p></div>
+      </div>
+    </section>
+
+    <!-- 3 ARCHITECTURE — TWO FLOWS -->
+    <section class="slide">
+      <div class="eyebrow rise">System architecture · business × under the hood</div>
+      <h2 class="rise">What people do. What runs.</h2>
+      <div class="ubar sm rise"></div>
+
+      <div class="band2 biz rise">
+        <div class="blab"><span class="n">B</span> What people do</div>
+        <div class="flow">
+          <div class="node"><span class="stp">1</span><div class="nt">Create employee</div><div class="nd">provisions their SQS + channels</div></div><div class="arr">→</div>
+          <div class="node"><span class="stp">2</span><div class="nt">Set preferences</div><div class="nd">runs the wizard</div></div><div class="arr">→</div>
+          <div class="node"><span class="stp">3</span><div class="nt">Operate agent</div><div class="nd">from the web app</div></div>
+        </div>
+      </div>
+
+      <div class="band2 rise">
+        <div class="blab"><span class="n">T</span> Under the hood</div>
+        <div class="flow">
+          <div class="node"><div class="nt">Channels</div><div class="nd">Slack · Jira · mail · git</div></div><div class="arr c">→<small>Kiro integration</small></div>
+          <div class="node hot"><div class="nt">SQS<span class="mtag">AWS · Kiro</span></div><div class="nd">one governed inbox</div></div><div class="arr c">→<small>poll every N&nbsp;s</small></div>
+          <div class="node"><div class="nt">Agent<span class="mtag">stateless</span></div><div class="nd">drains the queue</div></div><div class="arr">→</div>
+          <div class="node"><div class="nt">MCP</div><div class="nd">tools &amp; actions</div></div><div class="arr">→</div>
+          <div class="node"><div class="nt">Claude</div><div class="nd">the reasoning</div></div>
+        </div>
+      </div>
+
+      <div class="fnote rise">DYNAMODB HOLDS THE INTERACTIVE SESSION STATE — SO THE AGENT STAYS STATELESS · BUILT ON AWS + KIRO</div>
+    </section>
+
+    <!-- 4 DUAL-LAYER -->
+    <section class="slide">
+      <div class="eyebrow rise">Dual-layer architecture · decoupling personalization from governance</div>
+      <h2 class="rise">Personal × Global.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="dl rise">
+        <div class="dlcol">
+          <div class="hk">The wizard configures</div><div class="h">Personal layer</div>
+          <div class="dlrow"><b>Identity</b> — maps the workflow back to the individual.</div>
+          <div class="dlrow"><b>Channel connections</b> — only the approved channels they use.</div>
+          <div class="dlrow"><b>Personality</b> — their format &amp; working style.</div>
+        </div>
+        <div class="dlcol g">
+          <div class="hk">Governance defines</div><div class="h">Global layer</div>
+          <div class="dlrow"><b>Execution allowance</b> — what the agent may do.</div>
+          <div class="dlrow"><b>Strict ignorance</b> — what it must ignore.</div>
+          <div class="dlrow"><b>Event scoping</b> — which events are in scope.</div>
+          <div class="dlrow"><b>Pre-emptive discarding</b> — dropped before they reach the agent.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 KIRO -->
+    <section class="slide">
+      <div class="eyebrow rise">Positioning</div>
+      <h2 class="rise">Complementary to AWS Kiro.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="two rise">
+        <div class="lc"><h3>AWS Kiro — Building</h3><p>Kiro accelerates creation: it helps engineering teams build &amp; ship software faster.</p></div>
+        <div class="lc"><h3>Our system — Operations</h3><p>We provide the runtime — making the result operational across the org, turning real employee requests into a secure, controlled agent workflow.</p></div>
+      </div>
+      <div class="kiro rise"><b>Bridging the gap:</b> give every user — technical or non-technical — a dedicated, governed inbox, and advanced agent capabilities are safely democratized.</div>
+    </section>
+
+    <!-- 6 SECURE / VALUE -->
+    <section class="slide">
+      <div class="eyebrow rise">Why it wins</div>
+      <h2 class="rise">Secure execution, for all.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="rise">
+        <div class="vp"><span class="lead-in em">Human in control</span> — approval gate on everything; PII &amp; clinical data off-limits, enforced in code.</div>
+        <div class="vp"><span class="lead-in">For everyone</span> — technical &amp; non-technical alike; each person's own format.</div>
+        <div class="vp"><span class="lead-in em">A network that compounds</span> — every new agent unblocks the others.</div>
+      </div>
+    </section>
+
+    <!-- 7 LIVE & REAL -->
+    <section class="slide">
+      <div class="eyebrow rise">Live &amp; real</div>
+      <h2 class="rise">Not a mockup.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="two rise">
+        <div class="lc"><div class="ic">Demo</div><h3>See it work</h3><p>Onboard in the wizard → the hub handles the routine → agents coordinate across people over Slack &amp; Jira.</p></div>
+        <div class="lc"><div class="ic">Proof</div><h3>It runs today</h3><p>Merged to our repo · the agent parses live prefs · a <b>real Jira ticket (DS-1650)</b> — filed agent-to-agent, Gilat → Ilya.</p></div>
+      </div>
+    </section>
+
+    <!-- 8 DEMO -->
+    <section class="slide demo">
+      <div class="eyebrow rise"><span class="livebadge">LIVE</span> &nbsp;Demo · try it now</div>
+      <h2 class="rise">Onboarding, in 45 seconds.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="videowrap rise">
+        <iframe class="demoframe" src="./" title="The Reception Hall — live onboarding wizard" loading="lazy"></iframe>
+      </div>
+      <div class="vcap rise">This is the real wizard, running live. Set up an agent in The Reception Hall — identity, tools, pace, guardrails — and walk away with a live agent. &nbsp;<a href="./" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
+    </section>
+
+    <!-- 9 QUESTIONS -->
+    <section class="slide">
+      <div class="eyebrow rise">Thank you</div>
+      <h1 class="rise">Questions?</h1>
+      <div class="ubar rise"></div>
+      <div class="sub rise">To everyone who makes the science happen — thank you.</div>
+      <div class="meta rise">PHENO.AI · AWS · OUR CUSTOMERS · THE HACKATHON CREW</div>
+    </section>
+
+  </div>
+
+  <div class="footer">Agent in the Middle · by Pheno.ai</div>
+  <div class="chrome"><button class="navbtn" id="prev">‹</button><div class="dots" id="dots"></div><button class="navbtn" id="next">›</button></div>
+</div>
+
+<script>
+  var slides=[...document.querySelectorAll(".slide")],n=slides.length,idx=0,dots=document.getElementById("dots");
+  slides.forEach(function(_,k){var b=document.createElement("button");b.className="dot-i"+(k===0?" on":"");b.addEventListener("click",()=>go(k));dots.appendChild(b);});
+  function pad(x){return (x<10?"0":"")+x;}
+  function go(k){idx=Math.max(0,Math.min(n-1,k));slides.forEach((s,x)=>s.classList.toggle("active",x===idx));[...dots.children].forEach((d,x)=>d.classList.toggle("on",x===idx));document.getElementById("count").textContent=pad(idx+1)+" / "+pad(n);document.getElementById("pbar").style.width=((idx+1)/n*100)+"%";}
+  function next(){go(idx+1);}function prev(){go(idx-1);}
+  document.getElementById("next").addEventListener("click",next);document.getElementById("prev").addEventListener("click",prev);
+  document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();next();}else if(e.key==="ArrowLeft"){e.preventDefault();prev();}else if(e.key==="Home")go(0);else if(e.key==="End")go(n-1);});
+  document.getElementById("deck").addEventListener("click",function(e){if(e.target.closest("button,a"))return;var x=e.clientX/window.innerWidth;if(x>0.5)next();else prev();});
+  go(0);
+</script>
