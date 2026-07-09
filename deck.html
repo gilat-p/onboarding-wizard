@@ -88,7 +88,7 @@
 
 <div class="deck" id="deck">
   <div class="pbar" id="pbar"></div>
-  <div class="count" id="count">01 / 09</div>
+  <div class="count" id="count">01 / 11</div>
   <div class="frame">
 
     <!-- 1 TITLE -->
@@ -96,18 +96,28 @@
       <div class="eyebrow rise">Enterprise agent runtime · PhenoAI Hackathon ’26</div>
       <h1 class="rise">Agent in<br>the Middle</h1>
       <div class="ubar rise"></div>
-      <div class="sub rise">A dedicated agent runtime for <span class="k">every employee</span> — technical and non-technical.</div>
+      <div class="sub rise">An agent for <span class="k">every employee</span> — that talks to the other agents, so you don't have to.</div>
       <div class="meta rise">AMIT · GILAT · ILYA · MOSHE</div>
     </section>
 
-    <!-- 2 PARADIGM SHIFT -->
+    <!-- 2 WHY NOW -->
     <section class="slide">
-      <div class="eyebrow rise">The paradigm shift</div>
-      <h2 class="rise">Not another dev tool.</h2>
+      <div class="eyebrow rise">The problem no one's naming</div>
+      <h2 class="rise">We automated the writing.<br>Not the reading.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="sub rise" style="max-width:34ch">Every agent generates <em>more</em> — Slack, tickets, docs, transcripts. A human still has to read it, find the point, and decide.</div>
+      <div class="lead rise" style="margin-top:16px">More agents → more output → <b>more to read.</b> The bottleneck isn't doing the work anymore. It's understanding it — and it only gets worse.</div>
+      <div class="kiro rise" style="margin-top:16px">Every other tool <b>adds</b> to the pile. We're the one that <b>shrinks</b> it.</div>
+    </section>
+
+    <!-- 3 THE SHIFT -->
+    <section class="slide">
+      <div class="eyebrow rise">The shift</div>
+      <h2 class="rise">Not another dev tool.<br>An agent in the middle.</h2>
       <div class="ubar sm rise"></div>
       <div class="two rise">
-        <div class="lc"><div class="ic">For everyone</div><h3>Not only for developers</h3><p>An enterprise agent runtime for <b>every employee</b> — bridging the gap for technical and non-technical users alike.</p></div>
-        <div class="lc"><div class="ic">Dedicated</div><h3>A per-employee stack</h3><p>Each person gets a dedicated infrastructure stack connecting their approved channels — Slack, Jira, email — into a single, governed <b>SQS inbox</b>.</p></div>
+        <div class="lc"><div class="ic">For everyone</div><h3>One agent per person</h3><p>Not just engineers. Each employee gets an agent that speaks <b>their</b> dialect — their format, pace, and guardrails — technical and non-technical alike.</p></div>
+        <div class="lc"><div class="ic">In the middle</div><h3>It talks to the other agents</h3><p>It gathers context agent-to-agent, handles the routine, and pulls in a human on only two things: it's <b>out of context</b>, or a <b>decision</b> is needed.</p></div>
       </div>
     </section>
 
@@ -137,7 +147,7 @@
         </div>
       </div>
 
-      <div class="fnote rise">DYNAMODB HOLDS THE INTERACTIVE SESSION STATE — SO THE AGENT STAYS STATELESS · BUILT ON AWS + KIRO</div>
+      <div class="fnote rise">ESCALATIONS PERSIST IN DYNAMODB FOR HUMAN APPROVAL · THE AGENT IS STATELESS — DRIVEN ENTIRELY BY THE QUEUE · RUNS ON AWS</div>
     </section>
 
     <!-- 4 DUAL-LAYER -->
@@ -174,27 +184,16 @@
       <div class="kiro rise"><b>Bridging the gap:</b> give every user — technical or non-technical — a dedicated, governed inbox, and advanced agent capabilities are safely democratized.</div>
     </section>
 
-    <!-- 6 SECURE / VALUE -->
+    <!-- 6 IT'S REAL -->
     <section class="slide">
-      <div class="eyebrow rise">Why it wins</div>
-      <h2 class="rise">Secure execution, for all.</h2>
-      <div class="ubar sm rise"></div>
-      <div class="rise">
-        <div class="vp"><span class="lead-in em">Human in control</span> — approval gate on everything; PII &amp; clinical data off-limits, enforced in code.</div>
-        <div class="vp"><span class="lead-in">For everyone</span> — technical &amp; non-technical alike; each person's own format.</div>
-        <div class="vp"><span class="lead-in em">A network that compounds</span> — every new agent unblocks the others.</div>
-      </div>
-    </section>
-
-    <!-- 7 LIVE & REAL -->
-    <section class="slide">
-      <div class="eyebrow rise">Live &amp; real</div>
-      <h2 class="rise">Not a mockup.</h2>
+      <div class="eyebrow rise">Proof</div>
+      <h2 class="rise">It's real. Not a mockup.</h2>
       <div class="ubar sm rise"></div>
       <div class="two rise">
-        <div class="lc"><div class="ic">Demo</div><h3>See it work</h3><p>Onboard in the wizard → the hub handles the routine → agents coordinate across people over Slack &amp; Jira.</p></div>
-        <div class="lc"><div class="ic">Proof</div><h3>It runs today</h3><p>Merged to our repo · the agent parses live prefs · a <b>real Jira ticket (DS-1650)</b> — filed agent-to-agent, Gilat → Ilya.</p></div>
+        <div class="lc"><div class="ic">Running today</div><h3>Merged &amp; operating</h3><p>The agent parses <b>live prefs</b> and drains a real, governed <b>SQS inbox</b> — escalations to DynamoDB for approval, replies only via narrow, approved MCP tools (no destructive actions).</p></div>
+        <div class="lc"><div class="ic">Production-real</div><h3>It found its own bug</h3><p>Mid-hackathon, the live system surfaced a real dead-letter-queue gap. We diagnosed it and <b>shipped a PR</b>. That's not demo-ware — that's a system with real edge cases.</p></div>
       </div>
+      <div class="kiro rise">Now watch it run — <b>live, inside this deck.</b></div>
     </section>
 
     <!-- 8 DEMO -->
@@ -208,13 +207,38 @@
       <div class="vcap rise">This is the real wizard, running live. Set up an agent in The Reception Hall — identity, tools, pace, guardrails — and walk away with a live agent. &nbsp;<a href="./" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
     </section>
 
-    <!-- 9 QUESTIONS -->
+    <!-- 9 DEMO 2: AGENTS COORDINATE -->
+    <section class="slide demo">
+      <div class="eyebrow rise"><span class="livebadge">LIVE</span> &nbsp;Demo · agents coordinating</div>
+      <h2 class="rise">An agent registers itself.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="videowrap rise">
+        <iframe class="demoframe" data-replay src="./ilya-register.html" title="Agent-to-agent — Ilya self-registration"></iframe>
+      </div>
+      <div class="vcap rise">Same question, two agents: one <b>knows</b> and auto-answers; one <b>doesn't</b> and asks its human — nobody invents an answer. The demo onboards a new member, live. &nbsp;<a href="./ilya-register.html" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
+    </section>
+
+    <!-- 10 WHY IT WINS / WHY KEEP BUILDING -->
+    <section class="slide">
+      <div class="eyebrow rise">Why it wins — and why we keep building</div>
+      <h2 class="rise">The Focus Dividend.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="sub rise" style="max-width:40ch">Every routine thing your agent handles is an interruption you never got.</div>
+      <div class="rise" style="margin-top:12px">
+        <div class="vp"><span class="lead-in em">You get the hours back</span> — the system tallies what your agent absorbed, and you cash it in as protected, no-meeting focus time the org honors.</div>
+        <div class="vp"><span class="lead-in">Governed &amp; compounding</span> — approval gates and PII walls keep it safe; every new agent makes every other one faster.</div>
+        <div class="vp"><span class="lead-in em">The holdout is the slow node</span> — as agents spread, being <em>out</em> means everything routes through you, by hand. Adoption becomes the easy path.</div>
+      </div>
+      <div class="kiro rise">Per-person flavor → org-wide culture. This is how agents actually get embraced.</div>
+    </section>
+
+    <!-- 11 QUESTIONS -->
     <section class="slide">
       <div class="eyebrow rise">Thank you</div>
       <h1 class="rise">Questions?</h1>
       <div class="ubar rise"></div>
-      <div class="sub rise">To everyone who makes the science happen — thank you.</div>
-      <div class="meta rise">PHENO.AI · AWS · OUR CUSTOMERS · THE HACKATHON CREW</div>
+      <div class="sub rise">We automated the writing.<br>Let your agent handle the reading.</div>
+      <div class="meta rise">AGENT IN THE MIDDLE · PHENO.AI · AWS + KIRO</div>
     </section>
 
   </div>
@@ -228,6 +252,13 @@
   slides.forEach(function(_,k){var b=document.createElement("button");b.className="dot-i"+(k===0?" on":"");b.addEventListener("click",()=>go(k));dots.appendChild(b);});
   function pad(x){return (x<10?"0":"")+x;}
   function go(k){idx=Math.max(0,Math.min(n-1,k));slides.forEach((s,x)=>s.classList.toggle("active",x===idx));[...dots.children].forEach((d,x)=>d.classList.toggle("on",x===idx));document.getElementById("count").textContent=pad(idx+1)+" / "+pad(n);document.getElementById("pbar").style.width=((idx+1)/n*100)+"%";}
+  function replayActive(){
+    // Time-based embeds (the A2A demo) should play FRESH each time you arrive on
+    // their slide — reassigning src reloads the iframe. Interactive embeds (the
+    // wizard) have no data-replay, so their state is preserved.
+    slides[idx].querySelectorAll("iframe[data-replay]").forEach(function(f){ f.src = f.getAttribute("src"); });
+  }
+  var _go=go; go=function(k){_go(k);replayActive();};
   function next(){go(idx+1);}function prev(){go(idx-1);}
   document.getElementById("next").addEventListener("click",next);document.getElementById("prev").addEventListener("click",prev);
   document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();next();}else if(e.key==="ArrowLeft"){e.preventDefault();prev();}else if(e.key==="Home")go(0);else if(e.key==="End")go(n-1);});
