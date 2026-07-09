@@ -139,20 +139,15 @@
 
       <div class="band2 rise">
         <div class="blab"><span class="n">T</span> Under the hood</div>
-        <div class="flow">
+        <div class="flow" style="align-items:center">
           <div class="node"><div class="nt">Channels</div><div class="nd">Slack · Jira · mail</div></div><div class="arr">→</div>
           <div class="node hot"><div class="nt">SQS inbox<span class="mtag">AWS</span></div><div class="nd">one governed queue</div></div><div class="arr c">→<small>poll</small></div>
           <div class="node"><div class="nt">Stateless agent<span class="mtag">Claude · anywhere</span></div><div class="nd">drains &amp; reasons</div></div>
-        </div>
-        <div class="flow" style="margin-top:7px">
-          <div class="arr">↳</div>
-          <div class="node"><div class="nt">Reply autonomously</div><div class="nd">handler-authed MCP tools</div></div><div class="arr">→</div>
-          <div class="node hum"><div class="nt">👤 The person</div><div class="nd">gets the answer in their channel</div></div>
-        </div>
-        <div class="flow" style="margin-top:6px">
-          <div class="arr">↳</div>
-          <div class="node"><div class="nt">…or escalate<span class="mtag">stateful</span></div><div class="nd">DynamoDB + briefing path</div></div><div class="arr">→</div>
-          <div class="node hum"><div class="nt">👤 The handler</div><div class="nd">approves — then it sends</div></div>
+          <div class="arr">→</div>
+          <div style="display:flex;flex-direction:column;gap:7px;flex:1.7 1 0;min-width:240px">
+            <div class="flow" style="margin:0;flex-wrap:nowrap"><div class="node" style="flex:1"><div class="nt">Reply autonomously</div><div class="nd">handler-authed MCP</div></div><div class="arr">→</div><div class="node hum" style="flex:1"><div class="nt">👤 The person</div><div class="nd">answered in-channel</div></div></div>
+            <div class="flow" style="margin:0;flex-wrap:nowrap"><div class="node" style="flex:1"><div class="nt">…or escalate<span class="mtag">stateful</span></div><div class="nd">DynamoDB + briefing</div></div><div class="arr">→</div><div class="node hum" style="flex:1"><div class="nt">👤 The handler</div><div class="nd">approves → sends</div></div></div>
+          </div>
         </div>
       </div>
 
