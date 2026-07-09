@@ -110,7 +110,8 @@
     <div class="top">
       <div class="logo">🪄</div>
       <div><div class="n">The Reception Hall</div><div class="s" id="crumb">Let's meet your agent</div></div>
-      <button class="theme-toggle" id="tt">◐</button>
+      <button class="theme-toggle" id="resetBtn" style="margin-left:auto" title="Blank the wizard for a fresh demo">↺ Start over</button>
+      <button class="theme-toggle" id="tt" style="margin-left:8px">◐</button>
     </div>
     <div class="bar"><i id="fill"></i></div>
     <div class="stepno" id="stepno">Step 1 of 8</div>
@@ -368,6 +369,7 @@
     try{var t=document.getElementById("prefsOut").textContent,a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/markdown"}));a.download=this.getAttribute("data-name")||"prefs.md";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}catch(e){this.textContent="Use Copy";}
   });
   document.getElementById("tt").addEventListener("click",function(){var r=document.documentElement,dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",dark?"light":"dark");});
+  document.getElementById("resetBtn").addEventListener("click",function(){location.reload();});
   show(0);
 </script>
 
