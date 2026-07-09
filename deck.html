@@ -35,6 +35,7 @@
   .flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin-top:6px;}
   .node{position:relative;flex:1 1 0;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 13px;}
   .node.hot{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+  .node.hum{background:var(--blue-soft);border-color:color-mix(in srgb,var(--blue) 35%,var(--line));}
   .node .nt{font-family:var(--serif);font-weight:700;font-size:15px;} .node .nd{color:var(--muted);font-size:11.5px;margin-top:4px;line-height:1.3;} .node .nd b{color:var(--ink);}
   .arr{align-self:center;color:var(--blue);font-size:17px;}
   .fnote{font-family:var(--mono);color:var(--blue);font-size:clamp(11px,1.4vw,15px);letter-spacing:.06em;margin-top:18px;}
@@ -132,22 +133,30 @@
         <div class="flow">
           <div class="node"><span class="stp">1</span><div class="nt">Create employee</div><div class="nd">provisions their SQS + channels</div></div><div class="arr">→</div>
           <div class="node"><span class="stp">2</span><div class="nt">Set preferences</div><div class="nd">runs the wizard</div></div><div class="arr">→</div>
-          <div class="node"><span class="stp">3</span><div class="nt">Operate agent</div><div class="nd">from the web app</div></div>
+          <div class="node"><span class="stp">3</span><div class="nt">Operate agent</div><div class="nd">from your preferred tool — Claude Code, terminal, Codex, Cursor</div></div>
         </div>
       </div>
 
       <div class="band2 rise">
         <div class="blab"><span class="n">T</span> Under the hood</div>
         <div class="flow">
-          <div class="node"><div class="nt">Channels</div><div class="nd">Slack · Jira · mail · git</div></div><div class="arr c">→<small>Kiro integration</small></div>
-          <div class="node hot"><div class="nt">SQS<span class="mtag">AWS · Kiro</span></div><div class="nd">one governed inbox</div></div><div class="arr c">→<small>poll every N&nbsp;s</small></div>
-          <div class="node"><div class="nt">Agent<span class="mtag">stateless</span></div><div class="nd">drains the queue</div></div><div class="arr">→</div>
-          <div class="node"><div class="nt">MCP</div><div class="nd">tools &amp; actions</div></div><div class="arr">→</div>
-          <div class="node"><div class="nt">Claude</div><div class="nd">the reasoning</div></div>
+          <div class="node"><div class="nt">Channels</div><div class="nd">Slack · Jira · mail</div></div><div class="arr">→</div>
+          <div class="node hot"><div class="nt">SQS inbox<span class="mtag">AWS</span></div><div class="nd">one governed queue</div></div><div class="arr c">→<small>poll</small></div>
+          <div class="node"><div class="nt">Stateless agent<span class="mtag">Claude · anywhere</span></div><div class="nd">drains &amp; reasons</div></div>
+        </div>
+        <div class="flow" style="margin-top:7px">
+          <div class="arr">↳</div>
+          <div class="node"><div class="nt">Reply autonomously</div><div class="nd">handler-authed MCP tools</div></div><div class="arr">→</div>
+          <div class="node hum"><div class="nt">👤 The person</div><div class="nd">gets the answer in their channel</div></div>
+        </div>
+        <div class="flow" style="margin-top:6px">
+          <div class="arr">↳</div>
+          <div class="node"><div class="nt">…or escalate<span class="mtag">stateful</span></div><div class="nd">DynamoDB + briefing path</div></div><div class="arr">→</div>
+          <div class="node hum"><div class="nt">👤 The handler</div><div class="nd">approves — then it sends</div></div>
         </div>
       </div>
 
-      <div class="fnote rise">ESCALATIONS PERSIST IN DYNAMODB FOR HUMAN APPROVAL · THE AGENT IS STATELESS — DRIVEN BY THE QUEUE · RUNS ON AWS · COMPLEMENTARY TO KIRO — IT BUILDS, WE OPERATE</div>
+      <div class="fnote rise">ONLY THE STORES (SQS + DYNAMODB) RUN ON AWS · THE STATELESS AGENT RUNS ANYWHERE — ANY BOX, ANY TOOL · COMPLEMENTARY TO KIRO: IT BUILDS, WE OPERATE</div>
     </section>
 
     <!-- 4 DUAL-LAYER -->
