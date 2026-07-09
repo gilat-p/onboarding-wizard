@@ -60,11 +60,11 @@
   @keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(18,179,74,.5)}70%{box-shadow:0 0 0 9px rgba(18,179,74,0)}100%{box-shadow:0 0 0 0 rgba(18,179,74,0)}}
   .vcap{margin-top:12px;color:var(--muted);font-size:clamp(13px,1.6vw,17px);line-height:1.4;text-align:center;max-width:58ch;margin-left:auto;margin-right:auto;}
   /* demo slide: minimal chrome so the video is as large as possible */
-  .slide.demo{padding:3vh 4vw 2.4vh;justify-content:flex-start;}
-  .slide.demo h2{font-size:clamp(20px,2.8vw,32px);margin:2px 0 0;}
-  .slide.demo .ubar{margin:7px 0 8px;}
+  .slide.demo{padding:2.4vh 4vw 2vh;justify-content:flex-start;}
+  .slide.demo h2{font-size:clamp(19px,2.6vw,30px);margin:1px 0 0;}
+  .slide.demo .ubar{margin:6px 0 6px;}
   .slide.demo .videowrap{flex:1 1 auto;min-height:0;margin-top:2px;}
-  .slide.demo .vcap{margin-top:8px;flex:0 0 auto;}
+  .slide.demo .vcap{margin-top:7px;flex:0 0 auto;font-size:clamp(12px,1.4vw,15px);line-height:1.32;}
 
   .dl{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:4px;}
   .dlcol{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;}
@@ -88,7 +88,7 @@
 
 <div class="deck" id="deck">
   <div class="pbar" id="pbar"></div>
-  <div class="count" id="count">01 / 11</div>
+  <div class="count" id="count">01 / 12</div>
   <div class="frame">
 
     <!-- 1 TITLE -->
@@ -204,7 +204,7 @@
       <div class="videowrap rise">
         <iframe class="demoframe" src="./" title="The Reception Hall — live onboarding wizard" loading="lazy"></iframe>
       </div>
-      <div class="vcap rise">This is the real wizard, running live. Set up an agent in The Reception Hall — identity, tools, pace, guardrails — and walk away with a live agent. &nbsp;<a href="./" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
+      <div class="vcap rise">The real wizard, running live — set it up, walk away with an agent. &nbsp;<a href="./" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
     </section>
 
     <!-- 9 DEMO 2: AGENTS COORDINATE -->
@@ -215,7 +215,7 @@
       <div class="videowrap rise">
         <iframe class="demoframe" data-replay src="./ilya-register.html" title="Agent-to-agent — Ilya self-registration"></iframe>
       </div>
-      <div class="vcap rise">Same question, two agents: one <b>knows</b> and auto-answers; one <b>doesn't</b> and asks its human — nobody invents an answer. The demo onboards a new member, live. &nbsp;<a href="./ilya-register.html" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
+      <div class="vcap rise">Same question, two agents — one <b>knows</b> and answers, one <b>asks its human</b>. &nbsp;<a href="./ilya-register.html" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">open full-screen ↗</a></div>
     </section>
 
     <!-- 10 WHY IT WINS / WHY KEEP BUILDING -->
@@ -232,7 +232,21 @@
       <div class="kiro rise">Per-person flavor → org-wide culture. This is how agents actually get embraced.</div>
     </section>
 
-    <!-- 11 QUESTIONS -->
+    <!-- 11 ROADMAP -->
+    <section class="slide">
+      <div class="eyebrow rise">Roadmap · the hard parts we're building</div>
+      <h2 class="rise">What's next.</h2>
+      <div class="ubar sm rise"></div>
+      <div class="rise">
+        <div class="vp"><span class="lead-in em">Least-privilege by default</span> — the agent reads only what's scoped to it and shares only what's explicitly <b>tagged</b>. Never "read all my email," never leak sensitive data.</div>
+        <div class="vp"><span class="lead-in">Lifecycle &amp; offboarding</span> — when someone leaves, their agent is revoked, in-flight work is handed off, and they're removed from the directory — cleanly.</div>
+        <div class="vp"><span class="lead-in em">Trust &amp; audit</span> — signed agent-to-agent messages (no impersonation) and a full audit trail — SOC 2-ready.</div>
+        <div class="vp"><span class="lead-in">Cost &amp; scale</span> — per-agent budgets, and multi-tenant connectors so every box carries only its own credentials.</div>
+      </div>
+      <div class="kiro rise">We're not hiding the hard parts. We're sequencing them.</div>
+    </section>
+
+    <!-- 12 QUESTIONS -->
     <section class="slide">
       <div class="eyebrow rise">Thank you</div>
       <h1 class="rise">Questions?</h1>

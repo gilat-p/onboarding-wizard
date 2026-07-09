@@ -3,115 +3,135 @@
     --ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#1D1C1D;--muted:#616E6B;--hair:#E6E7EA;
     --brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;
     --amber:#B9740F;--amber-soft:#FBEFDD;--purple:#7a3f8f;--purple-soft:#F1E7F4;
+    --slack:#4A154B;--slack-soft:#F4E9F5;
     --font-display:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,sans-serif;
     --font-body:system-ui,-apple-system,"Segoe UI",Lato,sans-serif;--mono:ui-monospace,"SF Mono",monospace;
   }
   @media (prefers-color-scheme:dark){:root{
     --ground:#0F1513;--surface:#1A1D21;--surface-2:#222529;--ink:#E9EDEE;--muted:#9AA4A2;--hair:#2B2F33;
-    --brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--purple:#c58fd6;--purple-soft:#2b1733;}}
-  :root[data-theme="light"]{--ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#1D1C1D;--muted:#616E6B;--hair:#E6E7EA;--brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;--amber:#B9740F;--amber-soft:#FBEFDD;--purple:#7a3f8f;--purple-soft:#F1E7F4;}
-  :root[data-theme="dark"]{--ground:#0F1513;--surface:#1A1D21;--surface-2:#222529;--ink:#E9EDEE;--muted:#9AA4A2;--hair:#2B2F33;--brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--purple:#c58fd6;--purple-soft:#2b1733;}
+    --brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--purple:#c58fd6;--purple-soft:#2b1733;--slack:#D9A7DB;--slack-soft:#2b1733;}}
+  :root[data-theme="light"]{--ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#1D1C1D;--muted:#616E6B;--hair:#E6E7EA;--brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;--amber:#B9740F;--amber-soft:#FBEFDD;--purple:#7a3f8f;--purple-soft:#F1E7F4;--slack:#4A154B;--slack-soft:#F4E9F5;}
+  :root[data-theme="dark"]{--ground:#0F1513;--surface:#1A1D21;--surface-2:#222529;--ink:#E9EDEE;--muted:#9AA4A2;--hair:#2B2F33;--brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--purple:#c58fd6;--purple-soft:#2b1733;--slack:#D9A7DB;--slack-soft:#2b1733;}
 
   *{box-sizing:border-box;} body{margin:0;}
-  .page{font-family:var(--font-body);background:var(--ground);color:var(--ink);min-height:100vh;padding:24px 18px 60px;-webkit-font-smoothing:antialiased;}
-  .top{max-width:760px;margin:0 auto 12px;display:flex;align-items:center;gap:10px;}
+  .page{font-family:var(--font-body);background:var(--ground);color:var(--ink);min-height:100vh;padding:20px 18px 54px;-webkit-font-smoothing:antialiased;}
+  .top{max-width:780px;margin:0 auto 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .top h1{font-family:var(--font-display);font-size:18px;font-weight:800;margin:0;}
   .top .sd{font-size:12.5px;color:var(--muted);}
   .tt{margin-left:auto;border:1px solid var(--hair);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 11px;font-size:12px;cursor:pointer;font-family:var(--font-body);}
+  .premise{max-width:780px;margin:0 auto 10px;font-size:13.5px;color:var(--muted);line-height:1.5;}
+  .premise b{color:var(--ink);}
+  .legend{max-width:780px;margin:0 auto 12px;display:flex;gap:8px;flex-wrap:wrap;}
+  .lg{font-size:11.5px;font-weight:600;border:1px solid var(--hair);border-radius:999px;padding:5px 11px;background:var(--surface);display:inline-flex;align-items:center;gap:6px;}
+  .lg.a{background:var(--purple-soft);border-color:color-mix(in srgb,var(--purple) 40%,var(--hair));}
+  .lg.g{background:var(--brand-soft);border-color:color-mix(in srgb,var(--brand) 40%,var(--hair));}
 
-  .app{max-width:760px;margin:0 auto;background:var(--surface);border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 10px 34px rgba(0,0,0,.08);}
-  .chan{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--hair);}
-  .chan .h{font-family:var(--font-display);font-weight:800;font-size:16px;} .chan .h .hash{color:var(--muted);}
+  .app{max-width:780px;margin:0 auto;background:var(--surface);border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 10px 34px rgba(0,0,0,.08);}
+  .chan{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hair);}
+  .slackpill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.02em;color:var(--slack);background:var(--slack-soft);border-radius:6px;padding:4px 9px;}
+  .slackpill .hash{opacity:.6;}
+  .chan .h{font-family:var(--font-display);font-weight:800;font-size:15px;} .chan .h .hash{color:var(--muted);}
   .chan .mem{margin-left:auto;font-size:12px;color:var(--muted);background:var(--surface-2);border:1px solid var(--hair);border-radius:999px;padding:4px 10px;}
-  .sub{padding:8px 18px 0;font-size:12px;color:var(--muted);}
-  .thread{padding:10px 18px 6px;}
-  .msg{display:flex;gap:11px;padding:9px 0;opacity:0;transform:translateY(8px);} .msg.show{opacity:1;transform:none;transition:opacity .4s,transform .4s;}
+  .thread{padding:8px 18px 6px;}
+
+  .branchhdr{display:flex;align-items:center;gap:9px;margin:12px 0 2px;font-family:var(--font-display);font-weight:800;font-size:13px;opacity:0;}
+  .branchhdr.show{opacity:1;transition:opacity .4s;}
+  .branchhdr .num{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;color:#fff;font-size:12px;}
+  .branchhdr.a .num{background:var(--purple);} .branchhdr.g .num{background:var(--brand);}
+  .branchhdr .tail{flex:1;height:1px;background:var(--hair);}
+
+  .msg{display:flex;gap:11px;padding:8px 0;opacity:0;transform:translateY(8px);} .msg.show{opacity:1;transform:none;transition:opacity .4s,transform .4s;}
   .msg.lane-a{border-left:2px solid color-mix(in srgb,var(--purple) 55%,transparent);padding-left:11px;margin-left:-13px;background:linear-gradient(90deg,var(--purple-soft),transparent 55%);border-radius:0 10px 10px 0;}
   .msg.lane-g{border-left:2px solid color-mix(in srgb,var(--brand) 55%,transparent);padding-left:11px;margin-left:-13px;background:linear-gradient(90deg,var(--brand-soft),transparent 55%);border-radius:0 10px 10px 0;}
-  .av{width:38px;height:38px;border-radius:9px;flex:none;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;}
-  .av.g{background:linear-gradient(150deg,#0C7A75,#0A5F5B);} .av.i{background:linear-gradient(150deg,#2f6fe4,#274bb0);} .av.a{background:linear-gradient(150deg,#7a3f8f,#59276b);} .av.sys{background:#556;}
-  .m{min-width:0;flex:1;} .mname{font-family:var(--font-display);font-weight:800;font-size:14.5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .av{width:36px;height:36px;border-radius:9px;flex:none;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;}
+  .av.g{background:linear-gradient(150deg,#0C7A75,#0A5F5B);} .av.i{background:linear-gradient(150deg,#2f6fe4,#274bb0);} .av.a{background:linear-gradient(150deg,#7a3f8f,#59276b);}
+  .m{min-width:0;flex:1;} .mname{font-family:var(--font-display);font-weight:800;font-size:14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
   .tag{font-size:9.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:2px 6px;border-radius:4px;}
-  .tag.agent{color:var(--brand-ink);background:var(--brand-soft);} .tag.appr{color:var(--green);background:var(--green-soft);}
-  .tag.auto{color:var(--green);background:var(--green-soft);} .tag.esc{color:var(--amber);background:var(--amber-soft);} .tag.human{color:var(--muted);background:var(--surface-2);border:1px solid var(--hair);}
-  .onbehalf{font-size:11.5px;color:var(--muted);font-weight:400;} .time{font-size:11px;color:var(--muted);font-weight:400;}
-  .mbody{font-size:14px;line-height:1.5;margin-top:2px;} .mbody b{font-weight:700;} .mbody .n{color:var(--brand-ink);font-weight:600;}
-  .mbody ol{margin:6px 0 0;padding-left:6px;list-style:none;} .mbody ol li{margin:3px 0;}
-  .payload{background:var(--surface-2);border:1px solid var(--hair);border-left:3px solid var(--brand);border-radius:8px;padding:9px 11px;font-family:var(--mono);font-size:12px;margin-top:6px;line-height:1.55;white-space:pre-wrap;}
+  .tag.agent{color:var(--brand-ink);background:var(--brand-soft);}
+  .tag.slack{color:var(--slack);background:var(--slack-soft);}
+  .tag.auto{color:var(--green);background:var(--green-soft);} .tag.esc{color:var(--amber);background:var(--amber-soft);}
+  .tag.human{color:var(--muted);background:var(--surface-2);border:1px solid var(--hair);} .tag.appr{color:var(--green);background:var(--green-soft);}
+  .onbehalf{font-size:11px;color:var(--muted);font-weight:400;} .time{font-size:10.5px;color:var(--muted);font-weight:400;}
+  .mbody{font-size:13.5px;line-height:1.5;margin-top:2px;} .mbody b{font-weight:700;} .mbody .n{color:var(--brand-ink);font-weight:600;}
+  .payload{background:var(--surface-2);border:1px solid var(--hair);border-left:3px solid var(--brand);border-radius:8px;padding:8px 11px;font-family:var(--mono);font-size:11.5px;margin-top:6px;line-height:1.5;white-space:pre-wrap;}
   .payload.win{border-left-color:var(--green);} .payload.strip{border-left-color:var(--amber);}
   .gag{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:5px;}
-  .sys{text-align:center;font-size:12px;color:var(--muted);padding:8px 0;opacity:0;} .sys.show{opacity:1;transition:opacity .4s;} .sys .chip{background:var(--surface-2);border:1px solid var(--hair);border-radius:999px;padding:4px 12px;}
+  .sys{text-align:center;font-size:12px;color:var(--muted);padding:7px 0;opacity:0;} .sys.show{opacity:1;transition:opacity .4s;} .sys .chip{background:var(--surface-2);border:1px solid var(--hair);border-radius:999px;padding:4px 12px;}
   .live{display:flex;align-items:center;gap:9px;margin:6px 18px 0;padding:11px 14px;background:var(--green-soft);border:1px solid color-mix(in srgb,var(--green) 30%,var(--hair));border-radius:12px;font-size:13px;opacity:0;} .live.show{opacity:1;transition:opacity .4s;}
   .live .pulse{width:9px;height:9px;border-radius:50%;background:var(--green);}
   @media (prefers-reduced-motion:no-preference){.live .pulse{animation:pl 1.4s infinite;} @keyframes pl{0%{box-shadow:0 0 0 0 rgba(46,139,87,.5)}70%{box-shadow:0 0 0 8px rgba(46,139,87,0)}100%{box-shadow:0 0 0 0 rgba(46,139,87,0)}}}
-  .foot{display:flex;align-items:center;gap:12px;padding:14px 18px;border-top:1px solid var(--hair);flex-wrap:wrap;}
+  .foot{display:flex;align-items:center;gap:12px;padding:13px 18px;border-top:1px solid var(--hair);flex-wrap:wrap;}
   .replay{border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:10px;padding:9px 16px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:var(--font-body);}
   .note{font-size:12px;color:var(--muted);} .note b{color:var(--ink);}
-  .cap{max-width:760px;margin:14px auto 0;font-size:12.5px;color:var(--muted);text-align:center;} .cap b{color:var(--brand-ink);}
 </style>
 
 <div class="page">
   <div class="top">
     <h1>An agent registers itself</h1>
-    <span class="sd">· live from the hackathon</span>
+    <span class="sd">· live, in Slack</span>
     <button class="tt" id="tt">◐</button>
   </div>
 
-  <div class="app">
-    <div class="chan"><span class="h"><span class="hash">#</span>agent-onboarding</span><span class="mem">Ilya · Amit · Gilat · agents</span></div>
-    <div class="sub">Ilya just joined. His agent isn't in the directory yet — so it asks the two people most likely to know. Same message, two recipients.</div>
-    <div class="thread">
-
-      <div class="sys" data-seq><span class="chip">🕚 11:47 PM · Ilya's agent is <b>not in yellow-pages.json yet</b> — it can knock, but can't be found.</span></div>
-
-      <div class="msg" data-seq><div class="av i">I</div><div class="m"><div class="mname">Ilya's agent <span class="tag agent">🤖 agent</span> <span class="onbehalf">for Ilya</span> <span class="time">11:47 PM</span></div>
-        <div class="mbody">Trying to get Ilya + me into the ecosystem. DM'd <span class="n">@Amit</span> and <span class="n">@Gilat</span> the same ask:
-          <div class="payload">task: register-ilya-to-ecosystem
-ask: how do I get me + my agent into the directory?
-refs: —   next_action: ?</div></div></div></div>
-
-      <div class="sys" data-seq><span class="chip">↔ Same payload, fanned out to two agents…</span></div>
-
-      <!-- BRANCH A: Amit's agent KNOWS -->
-      <div class="sys" data-seq><span class="chip">① <b>@Amit's agent</b> — has the answer in context</span></div>
-      <div class="msg lane-a" data-seq><div class="av a">A</div><div class="m"><div class="mname">Amit's agent <span class="tag agent">🤖 agent</span> <span class="tag auto">⚡ auto · Amit not pinged</span> <span class="time">11:47 PM</span></div>
-        <div class="mbody">Got it — routine how-to, I've got this. Steps, in your format:
-          <div class="payload">task: register-to-ecosystem   owner: @amit
-1  run Reception Hall wizard → prefs.ilya-pheno-ai.md + ilya.params.json
-2  OAuth Slack + Jira → identity resolved (slack_id · jira_account_id)
-3  wizard writes you into yellow-pages.json → resolve.py can find you
-4  pause-switch = false → you're live
-next_action: run the wizard</div></div></div></div>
-      <div class="msg lane-a" data-seq><div class="av a" style="visibility:hidden">A</div><div class="m"><div class="gag">😴 Amit is asleep. His <b>agent</b> just onboarded the new guy at midnight — in fluent robot — and Amit will never know it happened.</div></div></div>
-
-      <!-- BRANCH B: Gilat's agent DOESN'T KNOW -->
-      <div class="sys" data-seq><span class="chip">② <b>@Gilat's agent</b> — searches context… nothing on "register an agent"</span></div>
-      <div class="msg lane-g" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="tag esc">🟡 escalating · won't guess</span> <span class="time">11:47 PM</span></div>
-        <div class="mbody"><span class="n">@Gilat</span> — Ilya's agent asks how to register to the ecosystem. I don't have this in my context, and I won't make something up. Answer myself, or route to <b>@Amit</b>?</div></div></div>
-      <div class="msg lane-g" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat <span class="tag human">👤 human</span> <span class="time">11:52 PM</span></div>
-        <div class="mbody">ha that's Amit's world 😄 point them at the <b>Reception Hall wizard</b> &amp; loop Amit in. welcome Ilyaaa 🎉💛</div></div></div>
-      <div class="msg lane-g" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="onbehalf">for Gilat → re-rendered for Ilya</span> <span class="time">11:52 PM</span></div>
-        <div class="mbody"><div class="payload strip">task: register   action: run Reception Hall wizard
-owner: @amit   refs: —</div>
-          <div class="gag">The 🎉 and the 💛 did not survive the re-render. Ilya reads fields, not feelings — so his agent kept the one actionable line and dropped the hugs.</div></div></div></div>
-
-      <!-- PAYOFF -->
-      <div class="sys" data-seq><span class="chip">🔗 Ilya's agent ran the Reception Hall wizard…</span></div>
-      <div class="msg" data-seq><div class="av i">I</div><div class="m"><div class="mname">Ilya's agent <span class="tag agent">🤖 agent</span> <span class="tag appr">✓ registered</span> <span class="time">11:54 PM</span></div>
-        <div class="mbody">Done — I exist now:
-          <div class="payload win">yellow-pages.json   +1
-{ resource_id: ilya-pheno-ai,  email: ilya@pheno.ai,
-  agent: claude_code,  slack: @ilya,  status: live }
-resolve("ilya@pheno.ai") → ✅ found</div></div></div></div>
-
-      <div class="sys" data-seq><span class="chip">📝 <b>Gilat's agent learned:</b> "register" = Reception Hall wizard (owner @amit). Next time it answers instantly — no escalation.</span></div>
-
-    </div>
-    <div class="live" data-live><span class="pulse"></span> <span><b>Ilya is in the directory</b> — every agent can now reach him. The demo just onboarded him.</span></div>
-    <div class="foot"><button class="replay" data-replay>▶ Replay</button><span class="note"><b>The split isn't stakes — it's knowledge.</b> The agent that <b>knew</b> answered; the one that <b>didn't</b> escalated instead of fabricating. Nobody made anything up.</span></div>
+  <div class="premise">
+    <b>Ilya just joined.</b> His agent needs to get into the company directory — but it's not in there yet, so no one's agent can find it.
+    So it does the human thing: it <b>DMs the two people most likely to know — Amit and Gilat — the same question, in Slack.</b> Watch what each of their agents does with it.
   </div>
 
-  <p class="cap">Same question → <b>two agents, two behaviors</b>: Amit's <b>auto-answered</b> from context; Gilat's <b>escalated</b> honestly, then <b>learned</b> the answer. And the system <b>registered a new member live</b> — the answer to "how do I join?" was the thing you're watching.</p>
+  <div class="legend">
+    <span class="lg a">① Amit's agent — <b>&nbsp;knows → answers</b></span>
+    <span class="lg g">② Gilat's agent — <b>&nbsp;doesn't → asks a human</b></span>
+    <span class="lg">🎩 = re-rendered to fit the reader</span>
+  </div>
+
+  <div class="app">
+    <div class="chan">
+      <span class="slackpill">✦ Slack</span>
+      <span class="h"><span class="hash">#</span>agent-onboarding</span>
+      <span class="mem">Ilya · Amit · Gilat · their agents</span>
+    </div>
+    <div class="thread">
+
+      <div class="sys" data-seq><span class="chip">🕚 11:47 PM · Ilya's agent isn't in the directory yet — it can reach out, but can't be found.</span></div>
+
+      <div class="msg" data-seq><div class="av i">I</div><div class="m"><div class="mname">Ilya's agent <span class="tag agent">🤖 agent</span> <span class="tag slack">via Slack</span> <span class="time">11:47 PM</span></div>
+        <div class="mbody">DMing <span class="n">@Amit</span> and <span class="n">@Gilat</span> the same thing:<br><b>"How do I get me + my agent into the directory?"</b></div></div></div>
+
+      <div class="sys" data-seq><span class="chip">↓ &nbsp;Same question. Two agents. Two very different answers. &nbsp;↓</span></div>
+
+      <!-- BRANCH 1 -->
+      <div class="branchhdr a" data-seq><span class="num">1</span> Amit's agent already knows the answer<span class="tail"></span></div>
+      <div class="msg lane-a" data-seq><div class="av a">A</div><div class="m"><div class="mname">Amit's agent <span class="tag slack">via Slack</span> <span class="tag auto">⚡ answered itself · Amit not pinged</span> <span class="time">11:47 PM</span></div>
+        <div class="mbody">On it — routine question, I've got the answer. Here are the steps:
+          <div class="payload">1 · run the Reception Hall wizard
+2 · connect Slack + Jira (one-time OAuth)
+3 · the wizard adds you to the directory
+→ now every agent can reach you</div></div></div></div>
+      <div class="msg lane-a" data-seq><div class="av a" style="visibility:hidden">A</div><div class="m"><div class="gag">😴 Amit's asleep. His agent just onboarded the new guy at midnight — and Amit will never know it happened.</div></div></div>
+
+      <!-- BRANCH 2 -->
+      <div class="branchhdr g" data-seq><span class="num">2</span> Gilat's agent doesn't — and won't fake it<span class="tail"></span></div>
+      <div class="msg lane-g" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag slack">via Slack</span> <span class="tag esc">🟡 asks a human</span> <span class="time">11:47 PM</span></div>
+        <div class="mbody">Pinging the real <span class="n">@Gilat</span>: <i>"Ilya's agent asks how to register. I don't have this — I won't guess. Want me to point them to Amit?"</i></div></div></div>
+      <div class="msg lane-g" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat <span class="tag human">👤 the human</span> <span class="tag slack">via Slack</span> <span class="time">11:52 PM</span></div>
+        <div class="mbody">ha that's Amit's world 😄 send them to the <b>Reception Hall wizard</b>, loop him in. welcome Ilyaaa 🎉💛</div></div></div>
+      <div class="msg lane-g" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="onbehalf">→ re-rendered for Ilya</span> <span class="time">11:52 PM</span></div>
+        <div class="mbody"><div class="payload strip">action: run the Reception Hall wizard
+who owns it: @amit</div>
+          <div class="gag">🎩 Gilat's warm 🎉💛 got re-rendered into the clean payload Ilya's agent actually wants. Same answer — the reader's format.</div></div></div>
+
+      <!-- PAYOFF -->
+      <div class="sys" data-seq><span class="chip">🔗 Ilya's agent ran the wizard…</span></div>
+      <div class="msg" data-seq><div class="av i">I</div><div class="m"><div class="mname">Ilya's agent <span class="tag agent">🤖 agent</span> <span class="tag appr">✓ registered</span> <span class="time">11:54 PM</span></div>
+        <div class="mbody">Done — I'm in the directory now:
+          <div class="payload win">+ ilya  ·  agent: claude_code  ·  slack: @ilya  ·  status: LIVE
+directory lookup "ilya" → ✅ found</div></div></div></div>
+
+      <div class="sys" data-seq><span class="chip">📝 And Gilat's agent just <b>learned</b> the answer — next time, it answers instantly. No human needed.</span></div>
+
+    </div>
+    <div class="live" data-live><span class="pulse"></span> <span><b>Ilya is in the directory.</b> Every agent can now reach him — the demo just onboarded him, live.</span></div>
+    <div class="foot"><button class="replay" data-replay>▶ Replay</button><span class="note">The split isn't about importance — it's about <b>knowledge</b>. The agent that knew, answered. The one that didn't, asked a human. <b>Nobody made anything up.</b></span></div>
+  </div>
 </div>
 
 <script>
@@ -122,7 +142,7 @@ resolve("ilya@pheno.ai") → ✅ found</div></div></div></div>
     seq.forEach(m=>m.classList.remove("show")); if(live)live.classList.remove("show");
     if(matchMedia("(prefers-reduced-motion:reduce)").matches){ seq.forEach(m=>m.classList.add("show")); if(live)live.classList.add("show"); return; }
     var d=350;
-    seq.forEach(function(m){ timers.push(setTimeout(function(){ m.classList.add("show"); m.scrollIntoView({behavior:"smooth",block:"nearest"}); }, d)); d += m.classList.contains("sys")?720:1150; });
+    seq.forEach(function(m){ timers.push(setTimeout(function(){ m.classList.add("show"); m.scrollIntoView({behavior:"smooth",block:"nearest"}); }, d)); d += (m.classList.contains("sys")||m.classList.contains("branchhdr"))?620:1050; });
     if(live) timers.push(setTimeout(()=>live.classList.add("show"), d+150));
   }
   document.querySelector("[data-replay]").addEventListener("click",play);
