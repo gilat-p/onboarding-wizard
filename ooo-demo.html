@@ -1,0 +1,112 @@
+<style>
+  :root{
+    --ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#1D1C1D;--muted:#616E6B;--hair:#E6E7EA;
+    --brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;
+    --amber:#B9740F;--amber-soft:#FBEFDD;--slack:#4A154B;--slack-soft:#F4E9F5;
+    --font-display:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,sans-serif;
+    --font-body:system-ui,-apple-system,"Segoe UI",Lato,sans-serif;--mono:ui-monospace,"SF Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ground:#0F1513;--surface:#1A1D21;--surface-2:#222529;--ink:#E9EDEE;--muted:#9AA4A2;--hair:#2B2F33;
+    --brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--slack:#D9A7DB;--slack-soft:#2b1733;}}
+  :root[data-theme="light"]{--ground:#F3F5F4;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#1D1C1D;--muted:#616E6B;--hair:#E6E7EA;--brand:#0C7A75;--brand-ink:#0A5F5B;--brand-soft:#E4F1EF;--green:#2E8B57;--green-soft:#E7F3EC;--amber:#B9740F;--amber-soft:#FBEFDD;--slack:#4A154B;--slack-soft:#F4E9F5;}
+  :root[data-theme="dark"]{--ground:#0F1513;--surface:#1A1D21;--surface-2:#222529;--ink:#E9EDEE;--muted:#9AA4A2;--hair:#2B2F33;--brand:#43B8B0;--brand-ink:#6FCFC7;--brand-soft:#123330;--green:#57BE84;--green-soft:#123024;--amber:#E0A04B;--amber-soft:#33260F;--slack:#D9A7DB;--slack-soft:#2b1733;}
+
+  *{box-sizing:border-box;} body{margin:0;}
+  .page{font-family:var(--font-body);background:var(--ground);color:var(--ink);min-height:100vh;padding:20px 18px 54px;-webkit-font-smoothing:antialiased;}
+  .top{max-width:760px;margin:0 auto 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .top h1{font-family:var(--font-display);font-size:18px;font-weight:800;margin:0;}
+  .top .sd{font-size:12.5px;color:var(--muted);}
+  .tt{margin-left:auto;border:1px solid var(--hair);background:var(--surface);color:var(--muted);border-radius:999px;padding:8px 11px;font-size:12px;cursor:pointer;font-family:var(--font-body);}
+  .premise{max-width:760px;margin:0 auto 12px;font-size:13.5px;color:var(--muted);line-height:1.5;}
+  .premise b{color:var(--ink);}
+
+  .app{max-width:760px;margin:0 auto;background:var(--surface);border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 10px 34px rgba(0,0,0,.08);}
+  .chan{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hair);}
+  .slackpill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.02em;color:var(--slack);background:var(--slack-soft);border-radius:6px;padding:4px 9px;}
+  .chan .h{font-family:var(--font-display);font-weight:800;font-size:15px;} .chan .h .hash{color:var(--muted);}
+  .chan .mem{margin-left:auto;font-size:12px;color:var(--muted);background:var(--surface-2);border:1px solid var(--hair);border-radius:999px;padding:4px 10px;}
+  .thread{padding:8px 18px 6px;}
+  .msg{display:flex;gap:11px;padding:8px 0;opacity:0;transform:translateY(8px);} .msg.show{opacity:1;transform:none;transition:opacity .4s,transform .4s;}
+  .msg.mine{background:linear-gradient(90deg,var(--brand-soft),transparent 60%);border-radius:10px;}
+  .av{width:36px;height:36px;border-radius:9px;flex:none;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;}
+  .av.g{background:linear-gradient(150deg,#0C7A75,#0A5F5B);} .av.a{background:linear-gradient(150deg,#7a3f8f,#59276b);} .av.c{background:linear-gradient(150deg,#8a5a2b,#6b3f18);}
+  .m{min-width:0;flex:1;} .mname{font-family:var(--font-display);font-weight:800;font-size:14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .tag{font-size:9.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:2px 6px;border-radius:4px;}
+  .tag.agent{color:var(--brand-ink);background:var(--brand-soft);} .tag.slack{color:var(--slack);background:var(--slack-soft);}
+  .tag.done{color:var(--green);background:var(--green-soft);} .tag.esc{color:var(--amber);background:var(--amber-soft);} .tag.human{color:var(--muted);background:var(--surface-2);border:1px solid var(--hair);}
+  .onbehalf{font-size:11px;color:var(--muted);font-weight:400;} .time{font-size:10.5px;color:var(--muted);font-weight:400;}
+  .mbody{font-size:13.5px;line-height:1.5;margin-top:2px;} .mbody b{font-weight:700;} .mbody .n{color:var(--brand-ink);font-weight:600;}
+  .sys{text-align:center;font-size:12px;color:var(--muted);padding:7px 0;opacity:0;} .sys.show{opacity:1;transition:opacity .4s;} .sys .chip{background:var(--surface-2);border:1px solid var(--hair);border-radius:999px;padding:4px 12px;}
+  .live{display:flex;align-items:center;gap:9px;margin:6px 18px 0;padding:11px 14px;background:var(--green-soft);border:1px solid color-mix(in srgb,var(--green) 30%,var(--hair));border-radius:12px;font-size:13px;opacity:0;} .live.show{opacity:1;transition:opacity .4s;}
+  .live .pulse{width:9px;height:9px;border-radius:50%;background:var(--green);}
+  @media (prefers-reduced-motion:no-preference){.live .pulse{animation:pl 1.4s infinite;} @keyframes pl{0%{box-shadow:0 0 0 0 rgba(46,139,87,.5)}70%{box-shadow:0 0 0 8px rgba(46,139,87,0)}100%{box-shadow:0 0 0 0 rgba(46,139,87,0)}}}
+  .foot{display:flex;align-items:center;gap:12px;padding:13px 18px;border-top:1px solid var(--hair);flex-wrap:wrap;}
+  .replay{border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:10px;padding:9px 16px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:var(--font-body);}
+  .note{font-size:12px;color:var(--muted);} .note b{color:var(--ink);}
+</style>
+
+<div class="page">
+  <div class="top">
+    <h1>Out of office 🏖️</h1>
+    <span class="sd">· your agent covers while you're gone</span>
+    <button class="tt" id="tt">◐</button>
+  </div>
+
+  <div class="premise">
+    <b>Gilat is on a beach until Monday.</b> Her agent is covering. Watch it handle the routine on its own — and interrupt her <b>exactly once</b>, for the one thing that actually needs a human.
+  </div>
+
+  <div class="app">
+    <div class="chan">
+      <span class="slackpill">✦ Slack</span>
+      <span class="h"><span class="hash">#</span>tre-onboarding</span>
+      <span class="mem">Gilat (OOO) · her agent · teammates</span>
+    </div>
+    <div class="thread">
+
+      <div class="sys" data-seq><span class="chip">🏖️ Gilat is OOO until Monday · her agent is covering · autonomy: handle routine, escalate the rest</span></div>
+
+      <div class="msg" data-seq><div class="av a">A</div><div class="m"><div class="mname">Amit <span class="tag slack">Slack</span> <span class="time">Fri 2:03 PM</span></div>
+        <div class="mbody"><span class="n">@Gilat</span> quick one — where's the July alpha onboarding checklist?</div></div></div>
+      <div class="msg mine" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="tag done">🟢 handled · Gilat not disturbed</span> <span class="time">Fri 2:03 PM</span></div>
+        <div class="mbody">Gilat's out till Monday 🏖️ — but I've got it: it's <b>TRE-418</b> in Jira, latest is the frozen v3. Sent you the link. 👍</div></div></div>
+
+      <div class="msg" data-seq><div class="av c">C</div><div class="m"><div class="mname">A customer <span class="tag slack">Slack</span> <span class="time">Fri 4:41 PM</span></div>
+        <div class="mbody">Can someone confirm our environment is still on track for next week?</div></div></div>
+      <div class="msg mine" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="tag done">🟢 handled</span> <span class="time">Fri 4:41 PM</span></div>
+        <div class="mbody">Checked the board — all green, on track for next week. Drafted a friendly reply and sent it. ✅</div></div></div>
+
+      <div class="sys" data-seq><span class="chip">…then something that actually needs a human ↓</span></div>
+
+      <div class="msg" data-seq><div class="av c">C</div><div class="m"><div class="mname">A customer <span class="tag slack">Slack</span> <span class="time">Fri 5:12 PM</span></div>
+        <div class="mbody">Actually — any chance we move the kickoff to <b>this Sunday</b>?</div></div></div>
+      <div class="msg mine" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="tag esc">🟡 needs Gilat</span> <span class="time">Fri 5:12 PM</span></div>
+        <div class="mbody">This one's a real decision (weekend + a commitment) — not mine to make. Pinging Gilat once: <i>"Customer wants to move kickoff to Sunday. OK to confirm?"</i></div></div></div>
+
+      <div class="msg" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat <span class="tag human">👤 from the beach</span> <span class="time">Fri 5:14 PM</span></div>
+        <div class="mbody">deal with it 🙂🏖️ sunday's fine, keep it to a 30-min call</div></div></div>
+      <div class="msg mine" data-seq><div class="av g">G</div><div class="m"><div class="mname">Gilat's agent <span class="tag agent">🤖 agent</span> <span class="tag done">🟢 done</span> <span class="time">Fri 5:14 PM</span></div>
+        <div class="mbody">On it — confirmed Sunday, capped at 30 min, sent the invite, looped the team. Enjoy the beach. 🍹</div></div></div>
+
+    </div>
+    <div class="live" data-live><span class="pulse"></span> <span><b>Monday digest:</b> "While you were out — 3 things handled, 1 decision you made in 6 seconds. Nothing slipped."</span></div>
+    <div class="foot"><button class="replay" data-replay>▶ Replay</button><span class="note">Async by default. Your agent handles the routine and interrupts you <b>only</b> for a real call — even on vacation.</span></div>
+  </div>
+</div>
+
+<script>
+  var timers=[];
+  function play(){
+    timers.forEach(clearTimeout);timers=[];
+    var seq=[...document.querySelectorAll("[data-seq]")], live=document.querySelector("[data-live]");
+    seq.forEach(m=>m.classList.remove("show")); if(live)live.classList.remove("show");
+    if(matchMedia("(prefers-reduced-motion:reduce)").matches){ seq.forEach(m=>m.classList.add("show")); if(live)live.classList.add("show"); return; }
+    var d=350;
+    seq.forEach(function(m){ timers.push(setTimeout(function(){ m.classList.add("show"); m.scrollIntoView({behavior:"smooth",block:"nearest"}); }, d)); d += m.classList.contains("sys")?620:1050; });
+    if(live) timers.push(setTimeout(()=>live.classList.add("show"), d+150));
+  }
+  document.querySelector("[data-replay]").addEventListener("click",play);
+  document.getElementById("tt").addEventListener("click",function(){var r=document.documentElement,dk=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",dk?"light":"dark");});
+  play();
+</script>
